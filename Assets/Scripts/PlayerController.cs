@@ -9,6 +9,8 @@ public class PlayerController : MonoBehaviour
     public float walkSpeed = 5f; // walking speed
     public float swimSpeed = 5f; // walking speed
     public float sprintSpeed = 10f; //sprinting speed
+    public float riseSpeed = 2f;
+    public float diveSpeed = 1.5f;
     private CharacterController controller;
     private Vector3 velocity;
     public float gravity = -9.81f;
@@ -18,11 +20,30 @@ public class PlayerController : MonoBehaviour
     public float interactDistance = 2f;
     public LayerMask rayMask;
     public bool underWater = false;
+    private Vector3 lookDirection;
+
+    public GameObject bodyOfPlayer;
+
+    private bool isSprinting = false;
+    private float waterVerticality = 0f;
 
     // Start is called before the first frame update
     private void Start()
     {
         controller = GetComponent<CharacterController>();
+    }
+
+    private void Awake()
+    {
+        PlayerInput inputActions = GetComponent<PlayerInput>();
+        if (underWater)
+        {
+            inputActions.currentActionMap = inputActions.actions.FindActionMap("Water");
+        }
+        else
+        {
+            inputActions.currentActionMap = inputActions.actions.FindActionMap("Land");
+        }
     }
 
     private void Update()
@@ -39,9 +60,9 @@ public class PlayerController : MonoBehaviour
 
     private void sendRay()
     {
-        Vector3 rayAngle = this.transform.forward;
-        rayAngle.y = this.transform.forward.y + rayYOffset;
-        ray = new Ray(this.transform.position, this.transform.forward);
+        Vector3 rayAngle = bodyOfPlayer.transform.forward;
+        rayAngle.y = bodyOfPlayer.transform.forward.y + rayYOffset;
+        ray = new Ray(bodyOfPlayer.transform.position, rayAngle);
     }
 
     private void Walk()
@@ -49,15 +70,41 @@ public class PlayerController : MonoBehaviour
         Vector3 moveDirection = new Vector3(direction.x, 0, direction.y);
         moveDirection = transform.TransformDirection(moveDirection);
         moveDirection *= walkSpeed;
+        lookDirection = moveDirection + bodyOfPlayer.transform.position;
+        bodyOfPlayer.transform.LookAt(lookDirection);
         moveDirection.y += gravity * Time.deltaTime;
         controller.Move(moveDirection * Time.deltaTime);
     }
 
-    private void Swim() { }
+    private void Swim()
+    {
+        Vector3 moveDirection = new Vector3(direction.x, 0, direction.y);
+        moveDirection = transform.TransformDirection(moveDirection);
+        moveDirection *= (isSprinting ? sprintSpeed : swimSpeed);
+        moveDirection.y = waterVerticality;
+        lookDirection = moveDirection + bodyOfPlayer.transform.position;
+        bodyOfPlayer.transform.LookAt(lookDirection);
+        controller.Move(moveDirection * Time.deltaTime);
+    }
 
     public void OnMove(InputValue value)
     {
         direction = value.Get<Vector2>();
+    }
+
+    public void OnSprint(InputValue value)
+    {
+        isSprinting = !isSprinting;
+    }
+
+    public void OnRise(InputValue value)
+    {
+        waterVerticality = value.Get<float>() * riseSpeed;
+    }
+
+    public void OnDive(InputValue value)
+    {
+        waterVerticality = -value.Get<float>() * diveSpeed;
     }
 
     public void OnInteract(InputValue value)
