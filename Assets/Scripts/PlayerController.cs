@@ -117,7 +117,12 @@ public class PlayerController : MonoBehaviour
             if (hitInfo.collider.GetComponent<Interactable>() != null)
             {
                 //Call Interact method of Interactable
+
                 hitInfo.collider.GetComponent<Interactable>().Interact();
+            }
+            else
+            {
+                Debug.Log("No Interactable");
             }
         }
     }

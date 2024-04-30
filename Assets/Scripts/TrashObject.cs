@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SceneExit : Interactable
+public class TrashObject : Interactable
 {
-    [SerializeField]
+    public Trash trash;
+
     public override void Interact()
     {
-        SceneLoader.SwitchScene();
+        Debug.Log("Trash");
     }
 }

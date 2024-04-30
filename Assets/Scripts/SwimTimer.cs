@@ -1,31 +1,50 @@
+//Author: Kim Effie Bolender
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SwimTimer : MonoBehaviour
 {
-    //The time left in the current cycle
+    //The time left in the current bottle
     public float timeLeft;
 
-    //The duration of a cycle
-    public float dayDuration;
+    //The max time of the current bottle
+    public float timeCapacity;
+
+    [SerializeField]
+    private Slider swimSlider;
+
+    
 
     // Start is called before the first frame update
-    void Start() { }
+    void Start()
+    {
+        timeLeft = timeCapacity;
+        swimSlider.maxValue = timeCapacity;
+    }
 
     // Update is called once per frame
     void Update()
     {
-        if (true)
+        if (timeLeft > 0f)
         {
-            //The current rotation
-            // currPercentile = maximum - (timeLeft * percentile);
             //Passage of time
             timeLeft -= Time.deltaTime;
-            //Rotating the game object
+            //Depleting the
+            swimSlider.value = timeLeft;
 
-
-            //Automatic events
+            //Automatic event
         }
+        else
+        {
+            PassOut();
+        }
+    }
+
+    private void PassOut()
+    {
+        //Set flag to pass-out
+        //tell scene manager to change back to land scene
     }
 }
