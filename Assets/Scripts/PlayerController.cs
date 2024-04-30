@@ -12,6 +12,9 @@ public class PlayerController : MonoBehaviour
     public float riseSpeed = 2f;
     public float diveSpeed = 1.5f;
     private CharacterController controller;
+
+    [SerializeField]
+    private Upgrades upgrade;
     private Vector3 velocity;
     public float gravity = -9.81f;
     private Vector3 direction;
@@ -21,7 +24,6 @@ public class PlayerController : MonoBehaviour
     public LayerMask rayMask;
     public bool underWater = false;
     private Vector3 lookDirection;
-
     public GameObject bodyOfPlayer;
 
     private bool isSprinting = false;
@@ -35,6 +37,7 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
+        sprintSpeed = upgrade.GetSpeed();
         PlayerInput inputActions = GetComponent<PlayerInput>();
         if (underWater)
         {
@@ -44,6 +47,7 @@ public class PlayerController : MonoBehaviour
         {
             inputActions.currentActionMap = inputActions.actions.FindActionMap("Land");
         }
+        DontDestroyOnLoad(gameObject);
     }
 
     private void Update()

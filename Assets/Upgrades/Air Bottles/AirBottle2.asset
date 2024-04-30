@@ -9,10 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d291dff2d4ed35c40bf96f5087917fc3, type: 3}
-  m_Name: Big_Battery
+  m_Script: {fileID: 11500000, guid: 25185fbc14fbabe47a98c33416ca9b96, type: 3}
+  m_Name: AirBottle2
   m_EditorClassIdentifier: 
-  trashName: Big Battery
-  trashTier: 4
-  trashWorth: 4
-  prefab: {fileID: 0}
+  tier: 2
+  bottleName: Advanced Air Bottle
+  capacity: 300
+  mesh: {fileID: 0}

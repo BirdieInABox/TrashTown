@@ -7,20 +7,21 @@ using UnityEngine.UI;
 public class SwimTimer : MonoBehaviour
 {
     //The time left in the current bottle
-    public float timeLeft;
+    private float timeLeft;
 
     //The max time of the current bottle
-    public float timeCapacity;
+    private float timeCapacity;
 
     [SerializeField]
+    private Upgrades upgrades;
     private Slider swimSlider;
 
-    
-
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
+        timeCapacity = upgrades.GetCapacity();
         timeLeft = timeCapacity;
+        swimSlider = GetComponent<Slider>();
         swimSlider.maxValue = timeCapacity;
     }
 
@@ -44,7 +45,7 @@ public class SwimTimer : MonoBehaviour
 
     private void PassOut()
     {
-        //Set flag to pass-out
         //tell scene manager to change back to land scene
+        SceneLoader.PassOut();
     }
 }

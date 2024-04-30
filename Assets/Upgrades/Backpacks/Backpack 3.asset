@@ -9,10 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d291dff2d4ed35c40bf96f5087917fc3, type: 3}
-  m_Name: Big_Battery
+  m_Script: {fileID: 11500000, guid: f20749bc60a27774caf8feed82422a24, type: 3}
+  m_Name: Backpack 3
   m_EditorClassIdentifier: 
-  trashName: Big Battery
-  trashTier: 4
-  trashWorth: 4
-  prefab: {fileID: 0}
+  tier: 3
+  backpackName: Great Backpack
+  size: 500
+  mesh: {fileID: 0}

@@ -8,6 +8,7 @@ public class TrashObject : Interactable
 
     public override void Interact()
     {
-        Debug.Log("Trash");
+        gameObject.GetComponentInParent<TrashCollection>().RemoveTrash(this);
+        Destroy(gameObject);
     }
 }

@@ -7,6 +7,6 @@ public class SceneExit : Interactable
     [SerializeField]
     public override void Interact()
     {
-        SceneLoader.SwitchScene();
+        SceneLoader.ExitScene();
     }
 }

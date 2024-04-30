@@ -22,4 +22,15 @@ public static class SceneLoader
             SceneManager.LoadScene(((Scenes)1).ToString());
         }
     }
+
+    public static void PassOut()
+    {
+        //don't save first, switch instantly
+        SwitchScene();
+    }
+    public static void ExitScene()
+    {
+        //Save first, then switch
+        SwitchScene();
+    }
 }
