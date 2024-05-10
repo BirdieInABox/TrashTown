@@ -12,7 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25185fbc14fbabe47a98c33416ca9b96, type: 3}
   m_Name: AirBottle2
   m_EditorClassIdentifier: 
-  tier: 2
-  bottleName: Advanced Air Bottle
+  upgradeName: Advanced Air Bottle
   capacity: 300
+  tier: 2
+  tierOneCost: 5
+  tierTwoCost: 10
+  tierThreeCost: 15
   mesh: {fileID: 0}
+  icon: {fileID: 0}

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class ResourceCounter : MonoBehaviour
+public class ResourceCounter : MonoBehaviour, IEventListener
 {
     public int numOfTiers = 4;
     private int[] resourcesAmounts;
@@ -26,8 +26,25 @@ public class ResourceCounter : MonoBehaviour
         }
     }
 
-    public void IncreaseResource(int amount, int tierID)
+    /// <summary>
+    /// Start is called on the frame when a script is enabled just before
+    /// any of the Update methods is called the first time.
+    /// </summary>
+    void Start()
     {
+        EventManager.MainStatic.AddListener(this);
+    }
+
+    public void OnEventReceived(EventData receivedEvent)
+    {
+        if (receivedEvent.Type == EventType.TrashCollected)
+            IncreaseResource((TrashObject)receivedEvent.Data);
+    }
+
+    public void IncreaseResource(TrashObject obj)
+    {
+        int amount = obj.trash.trashWorth;
+        int tierID = obj.trash.trashTier;
         if (tierID <= resourcesAmounts.Length && tierID > 0)
         {
             if (resourcesAmounts[tierID - 1] + amount > maxAmount)

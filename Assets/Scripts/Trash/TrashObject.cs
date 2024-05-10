@@ -8,7 +8,9 @@ public class TrashObject : Interactable
 
     public override void Interact()
     {
-        gameObject.GetComponentInParent<TrashCollection>().RemoveTrash(this);
+        EventManager.MainStatic.FireEvent(new EventData(EventType.TrashCollected, this));
+
+        //  gameObject.GetComponentInParent<TrashCollection>().RemoveTrash(this);
         Destroy(gameObject);
     }
 }
