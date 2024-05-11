@@ -499,6 +499,9 @@ MonoBehaviour:
   tierOne: {fileID: 1284493640}
   tierTwo: {fileID: 1198543192}
   tierThree: {fileID: 1176742343}
+  craftButton: {fileID: 1989338170}
+  resources: {fileID: 190786360}
+  upgrades: {fileID: 4428586851995993903}
 --- !u!1 &162583392
 GameObject:
   m_ObjectHideFlags: 0

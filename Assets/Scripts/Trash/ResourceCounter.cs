@@ -82,4 +82,9 @@ public class ResourceCounter : MonoBehaviour, IEventListener
             Debug.Log("Invalid TierID: " + tierID);
         }
     }
+
+    public int[] GetResources()
+    {
+        return resourcesAmounts;
+    }
 }

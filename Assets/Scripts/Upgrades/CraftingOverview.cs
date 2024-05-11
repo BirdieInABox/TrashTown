@@ -6,6 +6,18 @@ using UnityEngine.UI;
 
 public class CraftingOverview : MonoBehaviour, IEventListener
 {
+    private class Costs
+    {
+        public int[] tierCosts;
+
+        public Costs(int one, int two, int three)
+        {
+            tierCosts[0] = one;
+            tierCosts[1] = two;
+            tierCosts[2] = three;
+        }
+    }
+
     [SerializeField]
     private Image image;
 
@@ -20,7 +32,16 @@ public class CraftingOverview : MonoBehaviour, IEventListener
 
     [SerializeField]
     private TMP_Text tierThree;
+
+    [SerializeField]
+    private Button craftButton;
     private Upgrade upgrade;
+
+    [SerializeField]
+    private ResourceCounter resources;
+
+    [SerializeField]
+    private Upgrades upgrades;
 
     // Start is called before the first frame update
     void Start()
@@ -71,6 +92,10 @@ public class CraftingOverview : MonoBehaviour, IEventListener
         tierOne.SetText(upgrade.tierOneCost.ToString());
         tierTwo.SetText(upgrade.tierTwoCost.ToString());
         tierThree.SetText(upgrade.tierThreeCost.ToString());
+        UnlockCraft(
+            new Costs(upgrade.tierOneCost, upgrade.tierTwoCost, upgrade.tierThreeCost),
+            upgrade.tier <= upgrades.airBottle.tier
+        );
     }
 
     private void UpdateInformation(Backpack upgrade)
@@ -80,6 +105,10 @@ public class CraftingOverview : MonoBehaviour, IEventListener
         tierOne.SetText(upgrade.tierOneCost.ToString());
         tierTwo.SetText(upgrade.tierTwoCost.ToString());
         tierThree.SetText(upgrade.tierThreeCost.ToString());
+        UnlockCraft(
+            new Costs(upgrade.tierOneCost, upgrade.tierTwoCost, upgrade.tierThreeCost),
+            upgrade.tier <= upgrades.backpack.tier
+        );
     }
 
     private void UpdateInformation(SeaScooter upgrade)
@@ -89,6 +118,25 @@ public class CraftingOverview : MonoBehaviour, IEventListener
         tierOne.SetText(upgrade.tierOneCost.ToString());
         tierTwo.SetText(upgrade.tierTwoCost.ToString());
         tierThree.SetText(upgrade.tierThreeCost.ToString());
+        UnlockCraft(
+            new Costs(upgrade.tierOneCost, upgrade.tierTwoCost, upgrade.tierThreeCost),
+            upgrade.tier <= upgrades.scooter.tier
+        );
+    }
+
+    private void UnlockCraft(Costs costs, bool tierLower)
+    {
+        int[] resourceAmounts = resources.GetResources();
+        bool stayLocked = tierLower;
+        if (!stayLocked)
+        {
+            for (int i = 0; i < resourceAmounts.Length; i++)
+            {
+                stayLocked = stayLocked || (resourceAmounts[i] < costs.tierCosts[i]);
+                i++;
+            }
+        }
+        craftButton.interactable = !stayLocked;
     }
 
     public void OnCraft()
