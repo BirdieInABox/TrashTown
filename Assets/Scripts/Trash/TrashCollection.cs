@@ -9,6 +9,8 @@ public class TrashCollection : MonoBehaviour, IEventListener
     [SerializeField]
     private ResourceCounter counter;
 
+
+
     void Awake()
     {
         foreach (Transform child in gameObject.transform)
@@ -29,7 +31,10 @@ public class TrashCollection : MonoBehaviour, IEventListener
     public void OnEventReceived(EventData receivedEvent)
     {
         if (receivedEvent.Type == EventType.TrashCollected)
+        {
             RemoveTrash((TrashObject)receivedEvent.Data);
+        }
+      
     }
 
     public void RemoveTrash(TrashObject obj)

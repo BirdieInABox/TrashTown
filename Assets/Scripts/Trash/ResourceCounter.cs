@@ -39,6 +39,14 @@ public class ResourceCounter : MonoBehaviour, IEventListener
     {
         if (receivedEvent.Type == EventType.TrashCollected)
             IncreaseResource((TrashObject)receivedEvent.Data);
+        else if (receivedEvent.Type == EventType.ItemCrafted)
+        {
+            Upgrade upgradeItem = receivedEvent.Data as Upgrade;
+            if (upgradeItem is Backpack)
+            {
+                maxAmount = (upgradeItem as Backpack).size;
+            }
+        }
     }
 
     public void IncreaseResource(TrashObject obj)

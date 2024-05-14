@@ -38,7 +38,7 @@ public class Upgrades : MonoBehaviour, IEventListener
         {
             scooter = (upgradeItem as SeaScooter);
         }
-        else if (upgradeItem is SeaScooter)
+        else if (upgradeItem is Backpack)
         {
             backpack = (upgradeItem as Backpack);
         }
