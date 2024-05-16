@@ -15,12 +15,14 @@ public class MainMenu : MonoBehaviour
     [SerializeField] //Settings sliders
     private Slider MVolumeSlider,
         BGMVolumeSlider,
-        SFXVolumeSlider;
+        SFXVolumeSlider,
+        TextSpeedSlider;
 
     [SerializeField] //Settings slider value texts
     private TMP_Text MVolumeText,
         BGMVolumeText,
-        SFXVolumeText;
+        SFXVolumeText,
+        TextSpeedText;
 
     [SerializeField] //Main menu background music
     private AudioSource bgm;
@@ -28,14 +30,15 @@ public class MainMenu : MonoBehaviour
     private void Awake()
     {
         //Check if registry key already exists
-        /*  if (!PlayerPrefs.HasKey("MasterVolume"))
-          {
-              //If not, set standard values and create keys
-              PlayerPrefs.SetFloat("MasterVolume", 0.5f);
-              PlayerPrefs.SetFloat("BGMVolume", 0.5f);
-              PlayerPrefs.SetFloat("SFXVolume", 0.5f);
-              PlayerPrefs.Save();
-          }*/
+        if (!PlayerPrefs.HasKey("MasterVolume"))
+        {
+            //If not, set standard values and create keys
+            PlayerPrefs.SetFloat("MasterVolume", 0.5f);
+            PlayerPrefs.SetFloat("BGMVolume", 0.5f);
+            PlayerPrefs.SetFloat("SFXVolume", 0.5f);
+            PlayerPrefs.SetFloat("TextSpeed", 5);
+            PlayerPrefs.Save();
+        }
 
         //Get saved preference for master volume and set slider and value text to it
         MVolumeSlider.value = PlayerPrefs.GetFloat("MasterVolume");
@@ -50,6 +53,10 @@ public class MainMenu : MonoBehaviour
         //Get saved preference for effects volume and set slider and value text to it
         SFXVolumeSlider.value = PlayerPrefs.GetFloat("SFXVolume");
         SFXVolumeText.SetText((int)(SFXVolumeSlider.value * 100) + "%");
+
+        //Get saved preference for text speed and set slider and value text to it
+        TextSpeedSlider.value = PlayerPrefs.GetFloat("TextSpeed");
+        TextSpeedText.SetText(((int)(TextSpeedSlider.value)).ToString());
     }
 
     //Called when value of MVolumeSlider changes
@@ -60,8 +67,8 @@ public class MainMenu : MonoBehaviour
         //Update value text
         MVolumeText.SetText((int)(MVolumeSlider.value * 100) + "%");
         //Save preference
-        // PlayerPrefs.SetFloat("MasterVolume", MVolumeSlider.value);
-        //  PlayerPrefs.Save();
+        PlayerPrefs.SetFloat("MasterVolume", MVolumeSlider.value);
+        PlayerPrefs.Save();
     }
 
     //Called when value of BGMVolume changes
@@ -72,8 +79,8 @@ public class MainMenu : MonoBehaviour
         //Update value text
         BGMVolumeText.SetText((int)(BGMVolumeSlider.value * 100) + "%");
         //Save preference
-        // PlayerPrefs.SetFloat("BGMVolume", BGMVolumeSlider.value);
-        // PlayerPrefs.Save();
+        PlayerPrefs.SetFloat("BGMVolume", BGMVolumeSlider.value);
+        PlayerPrefs.Save();
     }
 
     //Called when value of SFXVolume changes
@@ -82,8 +89,16 @@ public class MainMenu : MonoBehaviour
         //Update value text
         SFXVolumeText.SetText((int)(SFXVolumeSlider.value * 100) + "%");
         //Save preference
-        // PlayerPrefs.SetFloat("SFXVolume", SFXVolumeSlider.value);
-        //PlayerPrefs.Save();
+        PlayerPrefs.SetFloat("SFXVolume", SFXVolumeSlider.value);
+        PlayerPrefs.Save();
+    }
+
+    public void ChangeTextSpeed()
+    {
+        //Update value text
+        TextSpeedText.SetText(((int)(TextSpeedSlider.value)).ToString());
+        PlayerPrefs.SetFloat("TextSpeed", TextSpeedSlider.value);
+        PlayerPrefs.Save();
     }
 
     //Called by Exit Game button
@@ -96,7 +111,7 @@ public class MainMenu : MonoBehaviour
     public void StartLevel()
     {
         //Load the level
-        SceneManager.LoadScene("Level");
+        SceneManager.LoadScene("Land");
     }
 
     //Called by Keybinds-button

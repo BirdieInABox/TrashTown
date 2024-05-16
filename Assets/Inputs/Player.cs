@@ -53,6 +53,15 @@ public partial class @Player: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Pause"",
+                    ""type"": ""Button"",
+                    ""id"": ""7aee9c53-54b7-4d94-99fa-c08988b167b9"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -231,6 +240,17 @@ public partial class @Player: IInputActionCollection2, IDisposable
                     ""action"": ""Interact"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""809366f4-9944-4458-94f5-46f4d54eb4f6"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -287,6 +307,15 @@ public partial class @Player: IInputActionCollection2, IDisposable
                     ""name"": ""Dive"",
                     ""type"": ""Button"",
                     ""id"": ""773dbe6f-670a-48bb-b3b8-10e67f863f62"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Pause"",
+                    ""type"": ""Button"",
+                    ""id"": ""e6c08a48-bccf-4b69-9940-51a63c59d3c7"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -500,6 +529,17 @@ public partial class @Player: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""Sprint"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""dcce64a0-0842-47d7-b941-959d48e97030"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pause"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1090,6 +1130,7 @@ public partial class @Player: IInputActionCollection2, IDisposable
         m_Land_Move = m_Land.FindAction("Move", throwIfNotFound: true);
         m_Land_Look = m_Land.FindAction("Look", throwIfNotFound: true);
         m_Land_Interact = m_Land.FindAction("Interact", throwIfNotFound: true);
+        m_Land_Pause = m_Land.FindAction("Pause", throwIfNotFound: true);
         // Water
         m_Water = asset.FindActionMap("Water", throwIfNotFound: true);
         m_Water_Move = m_Water.FindAction("Move", throwIfNotFound: true);
@@ -1098,6 +1139,7 @@ public partial class @Player: IInputActionCollection2, IDisposable
         m_Water_Interact = m_Water.FindAction("Interact", throwIfNotFound: true);
         m_Water_Rise = m_Water.FindAction("Rise", throwIfNotFound: true);
         m_Water_Dive = m_Water.FindAction("Dive", throwIfNotFound: true);
+        m_Water_Pause = m_Water.FindAction("Pause", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1174,6 +1216,7 @@ public partial class @Player: IInputActionCollection2, IDisposable
     private readonly InputAction m_Land_Move;
     private readonly InputAction m_Land_Look;
     private readonly InputAction m_Land_Interact;
+    private readonly InputAction m_Land_Pause;
     public struct LandActions
     {
         private @Player m_Wrapper;
@@ -1181,6 +1224,7 @@ public partial class @Player: IInputActionCollection2, IDisposable
         public InputAction @Move => m_Wrapper.m_Land_Move;
         public InputAction @Look => m_Wrapper.m_Land_Look;
         public InputAction @Interact => m_Wrapper.m_Land_Interact;
+        public InputAction @Pause => m_Wrapper.m_Land_Pause;
         public InputActionMap Get() { return m_Wrapper.m_Land; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1199,6 +1243,9 @@ public partial class @Player: IInputActionCollection2, IDisposable
             @Interact.started += instance.OnInteract;
             @Interact.performed += instance.OnInteract;
             @Interact.canceled += instance.OnInteract;
+            @Pause.started += instance.OnPause;
+            @Pause.performed += instance.OnPause;
+            @Pause.canceled += instance.OnPause;
         }
 
         private void UnregisterCallbacks(ILandActions instance)
@@ -1212,6 +1259,9 @@ public partial class @Player: IInputActionCollection2, IDisposable
             @Interact.started -= instance.OnInteract;
             @Interact.performed -= instance.OnInteract;
             @Interact.canceled -= instance.OnInteract;
+            @Pause.started -= instance.OnPause;
+            @Pause.performed -= instance.OnPause;
+            @Pause.canceled -= instance.OnPause;
         }
 
         public void RemoveCallbacks(ILandActions instance)
@@ -1239,6 +1289,7 @@ public partial class @Player: IInputActionCollection2, IDisposable
     private readonly InputAction m_Water_Interact;
     private readonly InputAction m_Water_Rise;
     private readonly InputAction m_Water_Dive;
+    private readonly InputAction m_Water_Pause;
     public struct WaterActions
     {
         private @Player m_Wrapper;
@@ -1249,6 +1300,7 @@ public partial class @Player: IInputActionCollection2, IDisposable
         public InputAction @Interact => m_Wrapper.m_Water_Interact;
         public InputAction @Rise => m_Wrapper.m_Water_Rise;
         public InputAction @Dive => m_Wrapper.m_Water_Dive;
+        public InputAction @Pause => m_Wrapper.m_Water_Pause;
         public InputActionMap Get() { return m_Wrapper.m_Water; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1276,6 +1328,9 @@ public partial class @Player: IInputActionCollection2, IDisposable
             @Dive.started += instance.OnDive;
             @Dive.performed += instance.OnDive;
             @Dive.canceled += instance.OnDive;
+            @Pause.started += instance.OnPause;
+            @Pause.performed += instance.OnPause;
+            @Pause.canceled += instance.OnPause;
         }
 
         private void UnregisterCallbacks(IWaterActions instance)
@@ -1298,6 +1353,9 @@ public partial class @Player: IInputActionCollection2, IDisposable
             @Dive.started -= instance.OnDive;
             @Dive.performed -= instance.OnDive;
             @Dive.canceled -= instance.OnDive;
+            @Pause.started -= instance.OnPause;
+            @Pause.performed -= instance.OnPause;
+            @Pause.canceled -= instance.OnPause;
         }
 
         public void RemoveCallbacks(IWaterActions instance)
@@ -1483,6 +1541,7 @@ public partial class @Player: IInputActionCollection2, IDisposable
         void OnMove(InputAction.CallbackContext context);
         void OnLook(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
+        void OnPause(InputAction.CallbackContext context);
     }
     public interface IWaterActions
     {
@@ -1492,6 +1551,7 @@ public partial class @Player: IInputActionCollection2, IDisposable
         void OnInteract(InputAction.CallbackContext context);
         void OnRise(InputAction.CallbackContext context);
         void OnDive(InputAction.CallbackContext context);
+        void OnPause(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {
