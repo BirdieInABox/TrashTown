@@ -25,7 +25,7 @@ public class PlayerController : MonoBehaviour
     public bool underWater = false;
     private Vector3 lookDirection;
     public GameObject bodyOfPlayer;
-
+    private Actions actionMap;
     private bool isSprinting = false;
     private float waterVerticality = 0f;
 
@@ -61,6 +61,8 @@ public class PlayerController : MonoBehaviour
         //Ray from center of camera towards the faced direction
         sendRay();
     }
+
+    public void OnPause() { }
 
     private void sendRay()
     {

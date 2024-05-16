@@ -18,12 +18,14 @@ public class Menu : MonoBehaviour
     [SerializeField] //Settings sliders
     private Slider MVolumeSlider,
         BGMVolumeSlider,
-        SFXVolumeSlider;
+        SFXVolumeSlider,
+        TextSpeedSlider;
 
     [SerializeField] //Settings slider value texts
     private TMP_Text MVolumeText,
         BGMVolumeText,
-        SFXVolumeText;
+        SFXVolumeText,
+        TextSpeedText;
 
     [SerializeField]
     private Player player;
@@ -50,13 +52,17 @@ public class Menu : MonoBehaviour
 
         //Get saved preference for music volume and set slider and value text to it
         BGMVolumeSlider.value = PlayerPrefs.GetFloat("BGMVolume");
-        bgm.volume = BGMVolumeSlider.value;
+        //  bgm.volume = BGMVolumeSlider.value;
         BGMVolumeText.SetText((int)(BGMVolumeSlider.value * 100) + "%");
 
         //Get saved preference for effects volume and set slider and value text to it
         SFXVolumeSlider.value = PlayerPrefs.GetFloat("SFXVolume");
-        sfx.volume = SFXVolumeSlider.value;
+        //sfx.volume = SFXVolumeSlider.value;
         SFXVolumeText.SetText((int)(SFXVolumeSlider.value * 100) + "%");
+
+        //Get saved preference for text speed and set slider and value text to it
+        TextSpeedSlider.value = PlayerPrefs.GetFloat("TextSpeed");
+        TextSpeedText.SetText(((int)(TextSpeedSlider.value)).ToString());
     }
 
     //Called when value of MVolumeSlider changes
@@ -75,7 +81,7 @@ public class Menu : MonoBehaviour
     public void ChangeBGMVolume()
     {
         //Set Audiosource's volume to value
-        bgm.volume = BGMVolumeSlider.value;
+        //  bgm.volume = BGMVolumeSlider.value;
         //Update value text
         BGMVolumeText.SetText((int)(BGMVolumeSlider.value * 100) + "%");
         //Save preference
@@ -87,11 +93,19 @@ public class Menu : MonoBehaviour
     public void ChangeSFXVolume()
     {
         //Set Audiosource's volume to value
-        sfx.volume = SFXVolumeSlider.value;
+        //   sfx.volume = SFXVolumeSlider.value;
         //Update value text
         SFXVolumeText.SetText((int)(SFXVolumeSlider.value * 100) + "%");
         //Save preference
         PlayerPrefs.SetFloat("SFXVolume", SFXVolumeSlider.value);
+        PlayerPrefs.Save();
+    }
+
+    public void ChangeTextSpeed()
+    {
+        //Update value text
+        TextSpeedText.SetText(((int)(TextSpeedSlider.value)).ToString());
+        PlayerPrefs.SetFloat("TextSpeed", TextSpeedSlider.value);
         PlayerPrefs.Save();
     }
 
