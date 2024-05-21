@@ -1672,9 +1672,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1117641376150961853}
-        m_TargetAssemblyTypeName: Menu, Assembly-CSharp
-        m_MethodName: Resume
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: OnPause
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2415,7 +2415,6 @@ MonoBehaviour:
   mainMenu: {fileID: 4945899472442341135}
   settingsMenu: {fileID: 6161316540742482634}
   bg: {fileID: 6161316539384446693}
-  lvlEndBox: {fileID: 0}
   MVolumeSlider: {fileID: 6161316539239633524}
   BGMVolumeSlider: {fileID: 8780925347256636782}
   SFXVolumeSlider: {fileID: 8352209825149650144}

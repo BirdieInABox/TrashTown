@@ -25,9 +25,9 @@ public class PlayerController : MonoBehaviour
     public bool underWater = false;
     private Vector3 lookDirection;
     public GameObject bodyOfPlayer;
-   // private Actions actionMap;
     private bool isSprinting = false;
     private float waterVerticality = 0f;
+    private PlayerInput inputActions;
 
     // Start is called before the first frame update
     private void Start()
@@ -38,7 +38,7 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         sprintSpeed = upgrade.GetSpeed();
-        PlayerInput inputActions = GetComponent<PlayerInput>();
+        inputActions = GetComponent<PlayerInput>();
         if (underWater)
         {
             inputActions.currentActionMap = inputActions.actions.FindActionMap("Water");
@@ -62,7 +62,22 @@ public class PlayerController : MonoBehaviour
         sendRay();
     }
 
-    public void OnPause() { }
+    public void OnPause()
+    {
+        if (inputActions.currentActionMap == inputActions.actions.FindActionMap("UI"))
+        {
+            inputActions.currentActionMap = (
+                underWater
+                    ? inputActions.actions.FindActionMap("Water")
+                    : inputActions.actions.FindActionMap("Land")
+            );
+        }
+        else
+        {
+            inputActions.currentActionMap = inputActions.actions.FindActionMap("UI");
+        }
+        EventManager.MainStatic.FireEvent(new EventData(EventType.GamePaused));
+    }
 
     private void sendRay()
     {

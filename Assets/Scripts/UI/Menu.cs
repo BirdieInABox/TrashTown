@@ -7,13 +7,12 @@ using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
-public class Menu : MonoBehaviour
+public class Menu : MonoBehaviour, IEventListener
 {
     [SerializeField] //Popup menus
     private GameObject mainMenu,
         settingsMenu,
-        bg,
-        lvlEndBox;
+        bg;
 
     [SerializeField] //Settings sliders
     private Slider MVolumeSlider,
@@ -42,8 +41,14 @@ public class Menu : MonoBehaviour
         Application.Quit();
     }
 
+    void Start()
+    {
+        EventManager.MainStatic.AddListener(this);
+    }
+
     void Awake()
     {
+        Cursor.lockState = CursorLockMode.Locked;
         gameIsPaused = false;
         //Get saved preference for master volume and set slider and value text to it
         MVolumeSlider.value = PlayerPrefs.GetFloat("MasterVolume");
@@ -118,22 +123,21 @@ public class Menu : MonoBehaviour
     //Called by Escape key
     public void OnToggle(InputValue value)
     {
-        //if EndBox isn't active
-        if (!lvlEndBox.activeSelf)
+        //If Settings are shown
+        if (settingsMenu.activeSelf)
         {
-            //If Settings are shown
-            if (settingsMenu.activeSelf)
-            {
-                gameIsPaused = !gameIsPaused;
-                //Hide all menus
-                settingsMenu.SetActive(false);
-                bg.SetActive(false);
-                mainMenu.SetActive(false);
-                ToggleCursor();
-            }
-            else //If Settings aren't shown
-                ToggleMenu();
+            gameIsPaused = !gameIsPaused;
+            //Hide all menus
+            settingsMenu.SetActive(false);
+            bg.SetActive(false);
+            mainMenu.SetActive(false);
+            ToggleCursor();
         }
+        else //If Settings aren't shown
+        {
+            ToggleMenu();
+        }
+        Time.timeScale = (gameIsPaused ? 0 : 1);
     }
 
     //Checks if either menu or settings are open
@@ -165,7 +169,7 @@ public class Menu : MonoBehaviour
         else
             Cursor.lockState = CursorLockMode.Locked;
 
-        Cursor.visible = !Cursor.visible;
+        //  Cursor.visible = !Cursor.visible;
     }
 
     //Called by Settings button
@@ -173,5 +177,11 @@ public class Menu : MonoBehaviour
     {
         mainMenu.SetActive(!mainMenu.activeSelf);
         settingsMenu.SetActive(!settingsMenu.activeSelf);
+    }
+
+    public void OnEventReceived(EventData receivedEvent)
+    {
+        if (receivedEvent.Type == EventType.GamePaused)
+            OnToggle(null);
     }
 }

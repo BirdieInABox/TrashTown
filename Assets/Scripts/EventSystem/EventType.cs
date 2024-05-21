@@ -6,5 +6,6 @@ public enum EventType
 {
     ItemCrafted,
     TrashCollected,
-    CraftingItemSelected
+    CraftingItemSelected,
+    GamePaused
 }
