@@ -7,5 +7,7 @@ public enum EventType
     ItemCrafted,
     TrashCollected,
     CraftingItemSelected,
-    GamePaused
+    GamePaused,
+    DialogueToggled,
+    TextSpeedChanged
 }

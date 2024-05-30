@@ -68,6 +68,7 @@ public class Menu : MonoBehaviour, IEventListener
         //Get saved preference for text speed and set slider and value text to it
         TextSpeedSlider.value = PlayerPrefs.GetFloat("TextSpeed");
         TextSpeedText.SetText(((int)(TextSpeedSlider.value)).ToString());
+        //EventManager.MainStatic.FireEvent( new EventData(EventType.TextSpeedChanged, TextSpeedSlider.value)        );
     }
 
     //Called when value of MVolumeSlider changes
@@ -109,6 +110,7 @@ public class Menu : MonoBehaviour, IEventListener
     public void ChangeTextSpeed()
     {
         //Update value text
+        //EventManager.MainStatic.FireEvent( new EventData(EventType.TextSpeedChanged, TextSpeedSlider.value)        );
         TextSpeedText.SetText(((int)(TextSpeedSlider.value)).ToString());
         PlayerPrefs.SetFloat("TextSpeed", TextSpeedSlider.value);
         PlayerPrefs.Save();

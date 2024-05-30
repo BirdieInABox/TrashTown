@@ -15,12 +15,15 @@ public static class SceneLoader
     {
         if (string.Equals(SceneManager.GetActiveScene().name, ((Scenes)1).ToString()))
         {
-            SceneManager.LoadScene(((Scenes)0).ToString());
+            SceneLoaderData.sceneToLoad = ((Scenes)0).ToString();
+            //SceneManager.LoadScene(((Scenes)0).ToString());
         }
         else if (string.Equals(SceneManager.GetActiveScene().name, ((Scenes)0).ToString()))
         {
-            SceneManager.LoadScene(((Scenes)1).ToString());
+            SceneLoaderData.sceneToLoad = ((Scenes)1).ToString();
+            // SceneManager.LoadScene(((Scenes)1).ToString());
         }
+        SceneManager.LoadScene("Loading Screen");
     }
 
     public static void PassOut()
@@ -28,6 +31,7 @@ public static class SceneLoader
         //don't save first, switch instantly
         SwitchScene();
     }
+
     public static void ExitScene()
     {
         //Save first, then switch
