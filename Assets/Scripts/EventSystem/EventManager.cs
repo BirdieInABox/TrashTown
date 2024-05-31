@@ -8,8 +8,6 @@ public class EventManager : MonoBehaviour
     List<IEventListener> listeners;
     List<EventData> events;
 
-    //    private Upgrades upgradeInventory;
-
     /// <summary>
     /// Awake is called when the script instance is being loaded.
     /// </summary>
@@ -47,9 +45,4 @@ public class EventManager : MonoBehaviour
     {
         events.Add(eventToFire);
     }
-
-    /* public void UpgradeItem(Upgrade upgrade)
-     {
-         upgradeInventory.Upgrade(upgrade);
-     }*/
 }

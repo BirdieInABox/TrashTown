@@ -6,13 +6,6 @@ using TMPro;
 
 public class DialogueSystem : Interactable, IEventListener
 {
-    //The text-field of the dialogue window
-    [SerializeField]
-    private TextMeshProUGUI textContent;
-
-    [SerializeField]
-    private PlayerController player;
-
     //The different texts of the dialogue, in order of appearance
 
     public Dialogue[] dialogues;
@@ -23,13 +16,15 @@ public class DialogueSystem : Interactable, IEventListener
     private float textSpeed;
 
     //the index of the current text passage of the dialogue
-    private int index;
+    private int lineIndex;
+    private int dialogueIndex;
+    private bool inDialogue = false;
 
     // Start is called before the first frame update
     void Awake()
     {
         //Empty the text-field
-        //    textContent.text = string.Empty;
+        EventManager.MainStatic.AddListener(this);
     }
 
     public void ChangeSpeed(float speed)
@@ -42,7 +37,19 @@ public class DialogueSystem : Interactable, IEventListener
         return textSpeed;
     }
 
-    public override void Interact() { }
+    public override void Interact()
+    {
+        if (!inDialogue)
+        {
+            inDialogue = true;
+            EventManager.MainStatic.FireEvent(new EventData(EventType.DialogueToggled));
+            DialogueStart(dialogues[dialogueIndex].lines);
+        }
+        else
+        {
+            NextLine();
+        }
+    }
 
     //Start first instance of this dialogue
     public void OnEventReceived(EventData receivedEvent)
@@ -57,10 +64,10 @@ public class DialogueSystem : Interactable, IEventListener
     {
         // player.toggleDialogue();
         gameObject.SetActive(true);
-        textContent.text = string.Empty;
+        DialogueLineData.currentLine = string.Empty;
         lines = npcDialogue;
         //Reset index to first text passage
-        index = 0;
+        lineIndex = 0;
         //Write first line
         StartCoroutine(TypeLine());
     }
@@ -69,10 +76,10 @@ public class DialogueSystem : Interactable, IEventListener
     IEnumerator TypeLine()
     {
         //For each character in the current text passage
-        foreach (char c in lines[index].ToCharArray())
+        foreach (char c in lines[lineIndex].ToCharArray())
         {
             //Add character to text-field
-            textContent.text += c;
+            DialogueLineData.currentLine += c;
             //return and wait according to the textSpeed
             yield return new WaitForSeconds(textSpeed);
         }
@@ -82,15 +89,15 @@ public class DialogueSystem : Interactable, IEventListener
     public void NextLine()
     {
         //if the entire text passage is currently being shown in the text-field
-        if (textContent.text == lines[index])
+        if (DialogueLineData.currentLine == lines[lineIndex])
         {
             //If the end of the dialogue hasn't been reached yet
-            if (index < lines.Length - 1)
+            if (lineIndex < lines.Length - 1)
             {
                 //Set index to next passage
-                index++;
+                lineIndex++;
                 //Empty the text-field
-                textContent.text = string.Empty;
+                DialogueLineData.currentLine = string.Empty;
                 //Write the next line
                 StartCoroutine(TypeLine());
             }
@@ -99,7 +106,8 @@ public class DialogueSystem : Interactable, IEventListener
                 lines = null;
                 // player.toggleDialogue();
                 //Hide the dialogue window
-                gameObject.SetActive(false);
+                inDialogue = false;
+                EventManager.MainStatic.FireEvent(new EventData(EventType.DialogueToggled));
             }
         }
         else //If the current text passage is currently NOT being fully shown in the text-field
@@ -107,13 +115,7 @@ public class DialogueSystem : Interactable, IEventListener
             //Skip the letter-by letter text
             StopAllCoroutines();
             //Show the current text passage instantly
-            textContent.text = lines[index];
+            DialogueLineData.currentLine = lines[lineIndex];
         }
-    }
-
-    public void EndDialogue()
-    {
-        textContent.SetText(string.Empty);
-        gameObject.SetActive(false);
     }
 }

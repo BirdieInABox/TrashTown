@@ -111,7 +111,8 @@ public class MainMenu : MonoBehaviour
     public void StartLevel()
     {
         //Load the level
-        SceneManager.LoadScene("Land");
+        SceneLoaderData.sceneToLoad = "Coding 1";
+        SceneManager.LoadScene("Loading Screen");
     }
 
     //Called by Keybinds-button
