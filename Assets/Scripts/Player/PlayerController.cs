@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour, IEventListener
 {
     public float walkSpeed = 5f; // walking speed
     public float swimSpeed = 5f; // walking speed
@@ -37,6 +37,8 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
+        EventManager.MainStatic.AddListener(this);
+
         sprintSpeed = upgrade.GetSpeed();
         inputActions = GetComponent<PlayerInput>();
         if (underWater)
@@ -60,6 +62,25 @@ public class PlayerController : MonoBehaviour
         }
         //Ray from center of camera towards the faced direction
         sendRay();
+    }
+
+    public void OnEventReceived(EventData receivedEvent)
+    {
+        if (receivedEvent.Type == EventType.DialogueToggled)
+        {
+            if (inputActions.currentActionMap == inputActions.actions.FindActionMap("Dialogue"))
+            {
+                inputActions.currentActionMap = (
+                    underWater
+                        ? inputActions.actions.FindActionMap("Water")
+                        : inputActions.actions.FindActionMap("Land")
+                );
+            }
+            else
+            {
+                inputActions.currentActionMap = inputActions.actions.FindActionMap("Dialogue");
+            }
+        }
     }
 
     public void OnPause()
@@ -93,7 +114,7 @@ public class PlayerController : MonoBehaviour
         moveDirection *= walkSpeed;
         lookDirection = moveDirection + bodyOfPlayer.transform.position;
         bodyOfPlayer.transform.LookAt(lookDirection);
-        moveDirection.y += gravity * Time.deltaTime;
+        moveDirection.y += gravity;
         controller.Move(moveDirection * Time.deltaTime);
     }
 

@@ -44,6 +44,9 @@ public class Menu : MonoBehaviour, IEventListener
     void Start()
     {
         EventManager.MainStatic.AddListener(this);
+        EventManager.MainStatic.FireEvent(
+            new EventData(EventType.TextSpeedChanged, (float)(1 / (TextSpeedSlider.value * 10)))
+        );
     }
 
     void Awake()
@@ -68,7 +71,6 @@ public class Menu : MonoBehaviour, IEventListener
         //Get saved preference for text speed and set slider and value text to it
         TextSpeedSlider.value = PlayerPrefs.GetFloat("TextSpeed");
         TextSpeedText.SetText(((int)(TextSpeedSlider.value)).ToString());
-        //EventManager.MainStatic.FireEvent( new EventData(EventType.TextSpeedChanged, TextSpeedSlider.value)        );
     }
 
     //Called when value of MVolumeSlider changes
@@ -114,6 +116,9 @@ public class Menu : MonoBehaviour, IEventListener
         TextSpeedText.SetText(((int)(TextSpeedSlider.value)).ToString());
         PlayerPrefs.SetFloat("TextSpeed", TextSpeedSlider.value);
         PlayerPrefs.Save();
+        EventManager.MainStatic.FireEvent(
+            new EventData(EventType.TextSpeedChanged, (float)(1 / (TextSpeedSlider.value * 10)))
+        );
     }
 
     //Called by the BackToMenu button
