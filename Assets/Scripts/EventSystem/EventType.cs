@@ -9,5 +9,6 @@ public enum EventType
     CraftingItemSelected,
     GamePaused,
     DialogueToggled,
-    TextSpeedChanged
+    TextSpeedChanged,
+    ConditionChanged
 }

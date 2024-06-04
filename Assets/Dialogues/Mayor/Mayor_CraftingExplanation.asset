@@ -12,6 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a237ee1aaad56b7498eaebe3337bad67, type: 3}
   m_Name: Mayor_CraftingExplanation
   m_EditorClassIdentifier: 
+  conditions:
+  - condition: 0
+    status: 1
+  - condition: 1
+    status: 0
   lines:
   - You see the workbench next to me?
   - Try interacting with it!

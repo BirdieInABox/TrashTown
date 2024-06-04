@@ -3,12 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System;
+using System.Drawing;
 
 public class DialogueSystem : Interactable, IEventListener
 {
     //The different texts of the dialogue, in order of appearance
 
     public Dialogue[] dialogues;
+    public ConditionSheet universalConditions;
     private string[] lines;
 
     //The speed in which the characters of the text appear
@@ -21,7 +24,7 @@ public class DialogueSystem : Interactable, IEventListener
     private bool inDialogue = false;
 
     // Start is called before the first frame update
-    void Awake()
+    void Start()
     {
         //Empty the text-field
         EventManager.MainStatic.AddListener(this);
@@ -43,12 +46,86 @@ public class DialogueSystem : Interactable, IEventListener
         {
             inDialogue = true;
             EventManager.MainStatic.FireEvent(new EventData(EventType.DialogueToggled));
-            DialogueStart(dialogues[dialogueIndex].lines);
+            //DialogueStart(dialogues[dialogueIndex].lines);
+            DialogueStart(ChooseDialogue().lines);
         }
         else
         {
             NextLine();
         }
+    }
+
+    private Dialogue ChooseDialogue()
+    {
+        Dialogue chosenDialogue = null;
+        bool dialogueFound = false;
+
+        foreach (Dialogue dialogue in dialogues)
+        {
+            Debug.Log("Dialogue name: " + dialogue.name);
+            foreach (ConditionStatus dialogueCondition in dialogue.conditions)
+            {
+                Predicate<ConditionStatus> predicate = FindCondition;
+
+                bool FindCondition(ConditionStatus condition)
+                {
+                    Debug.Log(
+                        "Dialogue Condition: "
+                            + dialogueCondition.condition
+                            + " Universal Condition: "
+                            + condition.condition
+                    );
+                    Debug.Log(
+                        "Dialogue Status: "
+                            + dialogueCondition.status
+                            + " | Universal Status: "
+                            + condition.status
+                    );
+
+                    Debug.Log("Return value: " + (condition.status == dialogueCondition.status));
+                    if (condition.status == dialogueCondition.status)
+                    {
+                        return true;
+                    }
+                    else
+                        return false;
+                }
+                Debug.Log(
+                    "Found: "
+                        + (
+                            Array
+                                .Find<ConditionStatus>(universalConditions.conditions, predicate)
+                                .status
+                        )
+                        + " | Need: "
+                        + dialogueCondition.status
+                        + " | Equals: "
+                        + (
+                            Array
+                                .Find<ConditionStatus>(universalConditions.conditions, predicate)
+                                .status == dialogueCondition.status
+                        )
+                );
+                if (
+                    Array.Find<ConditionStatus>(universalConditions.conditions, predicate).status
+                    != dialogueCondition.status
+                )
+                {
+                    dialogueFound = false;
+                    break;
+                }
+                else
+                {
+                    dialogueFound = true;
+                }
+            }
+            if (dialogueFound == true)
+            {
+                chosenDialogue = dialogue;
+                break;
+            }
+        }
+        return chosenDialogue;
     }
 
     //Start first instance of this dialogue

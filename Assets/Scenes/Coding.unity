@@ -3058,6 +3058,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1284493638}
   m_CullTransparentMesh: 1
+--- !u!1 &1338974806
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1338974808}
+  - component: {fileID: 1338974807}
+  m_Layer: 0
+  m_Name: Conditions
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1338974807
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1338974806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8a521a3020ef49489ccdfbadf459d70, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sheet: {fileID: 11400000, guid: b0255c2e5f5f901409940830d59f1295, type: 2}
+--- !u!4 &1338974808
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1338974806}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -14.3, y: 87.2, z: 64.4}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1486172048
 GameObject:
   m_ObjectHideFlags: 0
@@ -3239,6 +3284,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: bf3dbd21b88471b429f6ef1ee4f4b697, type: 2}
   - {fileID: 11400000, guid: 1b4c1d1c6ef40714c93e08edcb956c0c, type: 2}
   - {fileID: 11400000, guid: 36e4a6a11b3403547841ead772808de0, type: 2}
+  universalConditions: {fileID: 11400000, guid: b0255c2e5f5f901409940830d59f1295,
+    type: 2}
   textSpeed: 0
 --- !u!65 &1606680339
 BoxCollider:
@@ -4488,3 +4535,4 @@ SceneRoots:
   - {fileID: 1606680342}
   - {fileID: 1296133461559144033}
   - {fileID: 827069388}
+  - {fileID: 1338974808}
