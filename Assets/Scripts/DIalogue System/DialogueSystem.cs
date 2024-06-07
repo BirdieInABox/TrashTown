@@ -1,4 +1,4 @@
-//Author: Effie Bolender
+//Author: Effie Proestler
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -55,18 +55,22 @@ public class DialogueSystem : Interactable, IEventListener
         }
     }
 
+    //Chooses the correct dialogue to be displayed
     private Dialogue ChooseDialogue()
     {
+        //The dialogue that fulfills the conditions
         Dialogue chosenDialogue = null;
         bool dialogueFound = false;
 
+        //Go through each dialogue in this NPC's list of dialogues
         foreach (Dialogue dialogue in dialogues)
         {
             Debug.Log("Dialogue name: " + dialogue.name);
+            //Go through the current dialogue's list of conditions
             foreach (ConditionStatus dialogueCondition in dialogue.conditions)
             {
+                //The search specifications
                 Predicate<ConditionStatus> predicate = FindCondition;
-
                 bool FindCondition(ConditionStatus condition)
                 {
                     Debug.Log(
@@ -83,7 +87,8 @@ public class DialogueSystem : Interactable, IEventListener
                     );
 
                     Debug.Log("Return value: " + (condition.status == dialogueCondition.status));
-                    if (condition.status == dialogueCondition.status)
+                    //If the dialogue's condition sheet has a condition with the same identifier of the current condition in the player's condition sheet
+                    if (condition.condition == dialogueCondition.condition)
                     {
                         return true;
                     }
@@ -106,21 +111,26 @@ public class DialogueSystem : Interactable, IEventListener
                                 .status == dialogueCondition.status
                         )
                 );
+                //if the player's condition sheet does not fulfill the condition status of the dialogue
                 if (
                     Array.Find<ConditionStatus>(universalConditions.conditions, predicate).status
                     != dialogueCondition.status
                 )
                 {
+                    //stop looking for conditions in this dialogue
                     dialogueFound = false;
                     break;
                 }
                 else
                 {
+                    //the dialogue is still viable
                     dialogueFound = true;
                 }
             }
+            //if the dialogue is still viable
             if (dialogueFound == true)
             {
+                //Choose the current dialogue and stop looking for dialogues
                 chosenDialogue = dialogue;
                 break;
             }

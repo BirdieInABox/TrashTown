@@ -1,8 +1,10 @@
+//Author: Kim Effie Proestler
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
+[System.Serializable]
 public class ResourceCounter : MonoBehaviour, IEventListener
 {
     public int numOfTiers = 4;

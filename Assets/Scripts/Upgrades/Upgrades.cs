@@ -1,3 +1,4 @@
+//Author: Kim Effie Proestler
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

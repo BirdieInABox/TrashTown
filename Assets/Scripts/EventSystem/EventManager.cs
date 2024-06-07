@@ -1,3 +1,4 @@
+//Author: Tim Böttcher
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

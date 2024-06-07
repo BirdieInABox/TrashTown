@@ -1,4 +1,4 @@
-//Author: Kim Bolender
+//Author: Kim Effie Proestler
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -111,7 +111,7 @@ public class MainMenu : MonoBehaviour
     public void StartLevel()
     {
         //Load the level
-        SceneLoaderData.sceneToLoad = "Coding 1";
+        SceneLoaderData.sceneToLoad = "Coding";
         SceneManager.LoadScene("Loading Screen");
     }
 
