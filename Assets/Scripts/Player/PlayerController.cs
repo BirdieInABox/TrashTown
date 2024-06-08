@@ -1,22 +1,23 @@
-//Author: Kim Effie Bolender
+//Author: Kim Effie Proestler
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour, IEventListener
 {
     public float walkSpeed = 5f; // walking speed
-    public float swimSpeed = 5f; // walking speed
-    public float sprintSpeed = 10f; //sprinting speed
-    public float riseSpeed = 2f;
-    public float diveSpeed = 1.5f;
+    public float swimSpeed = 5f; // swimming speed
+    public float sprintSpeed = 10f; //fast swimming speed
+    public float riseSpeed = 2f; //underwater rising speed
+    public float diveSpeed = 1.5f; //underwater diving speed
     private CharacterController controller;
 
     [SerializeField]
     private Upgrades upgrade;
     private Vector3 velocity;
-    public float gravity = -9.81f;
+    public float gravity = -9.81f; //The gravitational forces on the player
     private Vector3 direction;
     private Ray ray;
     public float rayYOffset = 0;
@@ -29,27 +30,41 @@ public class PlayerController : MonoBehaviour, IEventListener
     private float waterVerticality = 0f;
     private PlayerInput inputActions;
 
-    // Start is called before the first frame update
-    private void Start()
-    {
-        controller = GetComponent<CharacterController>();
-    }
-
     private void Awake()
     {
-        EventManager.MainStatic.AddListener(this);
-
-        sprintSpeed = upgrade.GetSpeed();
+        controller = GetComponent<CharacterController>();
+        DontDestroyOnLoad(gameObject);
         inputActions = GetComponent<PlayerInput>();
-        if (underWater)
+    }
+
+    private void OnLevelWasLoaded()
+    {
+        EventManager.MainStatic.AddListener(this);
+        sprintSpeed = upgrade.GetSpeed();
+        UpdateControls();
+    }
+
+    private void UpdateControls()
+    {
+        if (SceneManager.GetActiveScene().name == ((Scenes)1).ToString())
         {
-            inputActions.currentActionMap = inputActions.actions.FindActionMap("Water");
+            underWater = true;
+            inputActions.currentActionMap = inputActions.actions.FindActionMap(
+                ((Scenes)3).ToString()
+            );
         }
         else
         {
-            inputActions.currentActionMap = inputActions.actions.FindActionMap("Land");
+            underWater = false;
+            inputActions.currentActionMap = inputActions.actions.FindActionMap(
+                ((Scenes)2).ToString()
+            );
         }
-        DontDestroyOnLoad(gameObject);
+    }
+
+    private void Start()
+    {
+        EventManager.MainStatic.AddListener(this);
     }
 
     private void Update()
@@ -83,7 +98,7 @@ public class PlayerController : MonoBehaviour, IEventListener
         }
     }
 
-    public void OnPause()
+    public void OnPause(InputValue value)
     {
         if (inputActions.currentActionMap == inputActions.actions.FindActionMap("UI"))
         {

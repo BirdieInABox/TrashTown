@@ -1,3 +1,4 @@
+//Author: Kim Effie Proestler
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -24,7 +25,7 @@ public class CameraControls : MonoBehaviour
         float mouseX = Input.GetAxis("Mouse X") * sensitivity * Time.deltaTime;
         float mouseY = Input.GetAxis("Mouse Y") * sensitivity * Time.deltaTime;
 
-       // playerBody.Rotate(Vector3.up * mouseX);
+        // playerBody.Rotate(Vector3.up * mouseX);
 
         //rotate camera vertically
         xRotation -= mouseY;

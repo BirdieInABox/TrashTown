@@ -1,4 +1,4 @@
-//Author: Kim Bolender
+//Author: Kim Effie Proestler
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -38,6 +38,7 @@ public class Menu : MonoBehaviour, IEventListener
     //Called by Exit Game button
     public void Exit()
     {
+        Save();
         Application.Quit();
     }
 
@@ -124,6 +125,7 @@ public class Menu : MonoBehaviour, IEventListener
     //Called by the BackToMenu button
     public void ToMainMenu()
     {
+        Save();
         SceneManager.LoadScene("MainMenu");
     }
 
@@ -189,6 +191,13 @@ public class Menu : MonoBehaviour, IEventListener
     public void OnEventReceived(EventData receivedEvent)
     {
         if (receivedEvent.Type == EventType.GamePaused)
+        {
             OnToggle(null);
+        }
+    }
+
+    private void Save()
+    {
+        EventManager.MainStatic.FireEvent(new EventData(EventType.SaveGame));
     }
 }

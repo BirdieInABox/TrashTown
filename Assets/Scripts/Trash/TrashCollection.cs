@@ -1,3 +1,4 @@
+//Author: Kim Effie Proestler
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,8 +9,6 @@ public class TrashCollection : MonoBehaviour, IEventListener
 
     [SerializeField]
     private ResourceCounter counter;
-
-
 
     void Awake()
     {
@@ -34,7 +33,6 @@ public class TrashCollection : MonoBehaviour, IEventListener
         {
             RemoveTrash((TrashObject)receivedEvent.Data);
         }
-      
     }
 
     public void RemoveTrash(TrashObject obj)

@@ -1,3 +1,4 @@
+//Author: Kim Effie Proestler
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,6 +21,7 @@ public class ConditionStatus
 }
 
 [CreateAssetMenu(fileName = "ConditionSheet", menuName = "ConditionSheet", order = 0)]
+[System.Serializable]
 public class ConditionSheet : ScriptableObject
 {
     public ConditionStatus[] conditions;

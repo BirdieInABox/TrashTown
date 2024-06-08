@@ -228,8 +228,13 @@
             },
             {
                 "type": "System.Single, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
+<<<<<<< HEAD
                 "key": "WeldVertices.weldDistance",
                 "value": "{\"m_Value\":10.390000343322754}"
+=======
+                "key": "uv.uvEditorGridSnapIncrement",
+                "value": "{\"m_Value\":0.125}"
+>>>>>>> 4ca1d1fd011a41e90467ec5fb0bda81b7f987589
             },
             {
                 "type": "UnityEngine.ProBuilder.ExtrudeMethod, Unity.ProBuilder, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",

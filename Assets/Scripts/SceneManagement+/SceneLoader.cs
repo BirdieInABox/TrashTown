@@ -1,3 +1,4 @@
+//Author: Kim Effie Proestler
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,7 +7,9 @@ using UnityEngine.SceneManagement;
 public enum Scenes
 {
     Coding = 0,
-    Coding2 = 1
+    Coding2 = 1,
+    Land = 2,
+    Water = 3
 }
 
 public static class SceneLoader
