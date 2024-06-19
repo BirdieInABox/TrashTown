@@ -60190,17 +60190,9 @@ MonoBehaviour:
   m_Mesh: {fileID: 1659761026}
   m_VersionIndex: 24081
   m_IsSelectable: 1
-  m_SelectedFaces: b0040000
-  m_SelectedEdges:
-  - a: 4783
-    b: 4784
-  - a: 4785
-    b: 4783
-  - a: 4784
-    b: 4786
-  - a: 4786
-    b: 4785
-  m_SelectedVertices: af120000b0120000b1120000b2120000
+  m_SelectedFaces: 
+  m_SelectedEdges: []
+  m_SelectedVertices: 
 --- !u!4 &404844173
 Transform:
   m_ObjectHideFlags: 0
@@ -60329,8 +60321,8 @@ Transform:
   m_GameObject: {fileID: 421147318}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8.6, y: 5.06, z: 52.4}
-  m_LocalScale: {x: 0.29289, y: 0.29289, z: 0.29289}
+  m_LocalPosition: {x: -8.6, y: 71.9, z: 52.4}
+  m_LocalScale: {x: 1.8213073, y: 1.8213073, z: 1.8213073}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
