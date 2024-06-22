@@ -97,4 +97,15 @@ public class ResourceCounter : MonoBehaviour, IEventListener
     {
         return resourcesAmounts;
     }
+
+    public void SetResources(int[] resources)
+    {
+        resourcesAmounts = resources;
+        int i = 0;
+        foreach (TMP_Text text in counterTexts)
+        {
+            text.text = resourcesAmounts[i].ToString();
+            i++;
+        }
+    }
 }

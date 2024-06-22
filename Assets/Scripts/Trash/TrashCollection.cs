@@ -40,4 +40,18 @@ public class TrashCollection : MonoBehaviour, IEventListener
         // counter.IncreaseResource(obj.trash.trashWorth, obj.trash.trashTier);
         trashObjects.Remove(obj);
     }
+
+    public void UpdateTrash(List<TrashObject> newTrashObjects)
+    {
+        for (int i = trashObjects.Count - 1; i >= 0; i--)
+        {
+            TrashObject obj = trashObjects[i];
+            if (!newTrashObjects.Contains(obj))
+            {
+                Debug.Log("Destroy Trash");
+                Destroy(obj.gameObject);
+                RemoveTrash(obj);
+            }
+        }
+    }
 }
