@@ -1,6 +1,7 @@
 //Author: Kim Effie Proestler
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -39,8 +40,14 @@ public class PlayerController : MonoBehaviour, IEventListener
 
     private void OnLevelWasLoaded()
     {
-        EventManager.MainStatic.AddListener(this);
-        sprintSpeed = upgrade.GetSpeed();
+        if (
+            SceneManager.GetActiveScene().name == ((Scenes)1).ToString()
+            || SceneManager.GetActiveScene().name == ((Scenes)2).ToString()
+        )
+        {
+            EventManager.MainStatic.AddListener(this);
+            sprintSpeed = upgrade.GetSpeed();
+        }
         UpdateControls();
     }
 
@@ -48,17 +55,39 @@ public class PlayerController : MonoBehaviour, IEventListener
     {
         if (SceneManager.GetActiveScene().name == ((Scenes)1).ToString())
         {
+            this.transform.GetChild(0).gameObject.SetActive(true);
             underWater = true;
             inputActions.currentActionMap = inputActions.actions.FindActionMap(
                 ((Scenes)3).ToString()
             );
         }
+        else if (SceneManager.GetActiveScene().name == ((Scenes)4).ToString())
+        {
+            this.transform.GetChild(0).gameObject.SetActive(false);
+        }
         else
         {
+            this.transform.GetChild(0).gameObject.SetActive(true);
             underWater = false;
             inputActions.currentActionMap = inputActions.actions.FindActionMap(
                 ((Scenes)2).ToString()
             );
+        }
+    }
+
+    private void ToggleDialogue()
+    {
+        if (inputActions.currentActionMap == inputActions.actions.FindActionMap("Dialogue"))
+        {
+            inputActions.currentActionMap = (
+                underWater
+                    ? inputActions.actions.FindActionMap("Water")
+                    : inputActions.actions.FindActionMap("Land")
+            );
+        }
+        else
+        {
+            inputActions.currentActionMap = inputActions.actions.FindActionMap("Dialogue");
         }
     }
 
@@ -83,19 +112,18 @@ public class PlayerController : MonoBehaviour, IEventListener
     {
         if (receivedEvent.Type == EventType.DialogueToggled)
         {
-            if (inputActions.currentActionMap == inputActions.actions.FindActionMap("Dialogue"))
-            {
-                inputActions.currentActionMap = (
-                    underWater
-                        ? inputActions.actions.FindActionMap("Water")
-                        : inputActions.actions.FindActionMap("Land")
-                );
-            }
-            else
-            {
-                inputActions.currentActionMap = inputActions.actions.FindActionMap("Dialogue");
-            }
+            ToggleDialogue();
         }
+        else if (receivedEvent.Type == EventType.SetSpawn)
+        {
+            GoToSpawn((Transform)receivedEvent.Data);
+        }
+    }
+
+    private void GoToSpawn(Transform spawn)
+    {
+        this.transform.position = spawn.position;
+        this.transform.rotation = spawn.rotation;
     }
 
     public void OnPause(InputValue value)
@@ -125,9 +153,11 @@ public class PlayerController : MonoBehaviour, IEventListener
     private void Walk()
     {
         Vector3 moveDirection = new Vector3(direction.x, 0, direction.y);
-        moveDirection = transform.TransformDirection(moveDirection);
+        moveDirection = Camera.main.transform.TransformDirection(moveDirection);
+        moveDirection.y = 0;
         moveDirection *= walkSpeed;
         lookDirection = moveDirection + bodyOfPlayer.transform.position;
+        //lookDirection.y = ;
         bodyOfPlayer.transform.LookAt(lookDirection);
         moveDirection.y += gravity;
         controller.Move(moveDirection * Time.deltaTime);
@@ -136,7 +166,7 @@ public class PlayerController : MonoBehaviour, IEventListener
     private void Swim()
     {
         Vector3 moveDirection = new Vector3(direction.x, 0, direction.y);
-        moveDirection = transform.TransformDirection(moveDirection);
+        moveDirection = Camera.main.transform.TransformDirection(moveDirection);
         moveDirection *= (isSprinting ? sprintSpeed : swimSpeed);
         moveDirection.y = waterVerticality;
         lookDirection = moveDirection + bodyOfPlayer.transform.position;
@@ -183,4 +213,14 @@ public class PlayerController : MonoBehaviour, IEventListener
             }
         }
     }
+
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "WaterBarrier")
+        {
+            other.gameObject.GetComponent<WaterBarrier>().CheckUpgrade(upgrade.airBottle);
+        }
+    }
+
 }

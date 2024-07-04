@@ -12,5 +12,6 @@ public enum EventType
     DialogueToggled,
     TextSpeedChanged,
     ConditionChanged,
-    SaveGame
+    SaveGame,
+    SetSpawn
 }

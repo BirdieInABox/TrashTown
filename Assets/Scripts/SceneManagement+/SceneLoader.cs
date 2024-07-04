@@ -9,7 +9,8 @@ public enum Scenes
     Coding = 0,
     Coding2 = 1,
     Land = 2,
-    Water = 3
+    Water = 3,
+    MainMenu = 4
 }
 
 public static class SceneLoader

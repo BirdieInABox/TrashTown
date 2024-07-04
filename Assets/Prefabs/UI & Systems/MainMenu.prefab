@@ -34,10 +34,10 @@ RectTransform:
   - {fileID: 6480795849844784461}
   m_Father: {fileID: 6480795850831543056}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 600, y: 150}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 0, y: -150}
+  m_SizeDelta: {x: 1000, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6480795849511292255
 CanvasRenderer:
@@ -792,9 +792,11 @@ MonoBehaviour:
   MVolumeSlider: {fileID: 0}
   BGMVolumeSlider: {fileID: 0}
   SFXVolumeSlider: {fileID: 0}
+  TextSpeedSlider: {fileID: 0}
   MVolumeText: {fileID: 0}
   BGMVolumeText: {fileID: 0}
   SFXVolumeText: {fileID: 0}
+  TextSpeedText: {fileID: 0}
   bgm: {fileID: 0}
 --- !u!1 &6480795851175468193
 GameObject:
