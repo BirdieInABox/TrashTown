@@ -1,4 +1,4 @@
-//Author: Effie Proestler
+//Author: Kim Effie Proestler
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,13 +9,11 @@ using System.Drawing;
 public class DialogueSystem : Interactable, IEventListener
 {
     //The different texts of the dialogue, in order of appearance
-
     public Dialogue[] dialogues;
     public ConditionSheet universalConditions;
     private string[] lines;
 
     //The speed in which the characters of the text appear
-    [SerializeField]
     private float textSpeed;
 
     //the index of the current text passage of the dialogue
@@ -30,27 +28,29 @@ public class DialogueSystem : Interactable, IEventListener
         EventManager.MainStatic.AddListener(this);
     }
 
-    public void ChangeSpeed(float speed)
-    {
-        textSpeed = speed;
-    }
-
+    //Returns the text speed
     public float GetSpeed()
     {
         return textSpeed;
     }
 
+    /// <summary>
+    /// Called when the player uses the interact button while facing this object
+    /// </summary>
     public override void Interact()
     {
+        //If not in a dialogue already
         if (!inDialogue)
         {
+            //Toggle dialogue
             inDialogue = true;
             EventManager.MainStatic.FireEvent(new EventData(EventType.DialogueToggled));
             //DialogueStart(dialogues[dialogueIndex].lines);
             DialogueStart(ChooseDialogue().lines);
         }
-        else
+        else //If in dialogue already
         {
+            //Continue text
             NextLine();
         }
     }
@@ -65,7 +65,6 @@ public class DialogueSystem : Interactable, IEventListener
         //Go through each dialogue in this NPC's list of dialogues
         foreach (Dialogue dialogue in dialogues)
         {
-            Debug.Log("Dialogue name: " + dialogue.name);
             //Go through the current dialogue's list of conditions
             foreach (ConditionStatus dialogueCondition in dialogue.conditions)
             {
@@ -73,20 +72,6 @@ public class DialogueSystem : Interactable, IEventListener
                 Predicate<ConditionStatus> predicate = FindCondition;
                 bool FindCondition(ConditionStatus condition)
                 {
-                    Debug.Log(
-                        "Dialogue Condition: "
-                            + dialogueCondition.condition
-                            + " Universal Condition: "
-                            + condition.condition
-                    );
-                    Debug.Log(
-                        "Dialogue Status: "
-                            + dialogueCondition.status
-                            + " | Universal Status: "
-                            + condition.status
-                    );
-
-                    Debug.Log("Return value: " + (condition.status == dialogueCondition.status));
                     //If the dialogue's condition sheet has a condition with the same identifier of the current condition in the player's condition sheet
                     if (condition.condition == dialogueCondition.condition)
                     {
@@ -95,22 +80,6 @@ public class DialogueSystem : Interactable, IEventListener
                     else
                         return false;
                 }
-                Debug.Log(
-                    "Found: "
-                        + (
-                            Array
-                                .Find<ConditionStatus>(universalConditions.conditions, predicate)
-                                .status
-                        )
-                        + " | Need: "
-                        + dialogueCondition.status
-                        + " | Equals: "
-                        + (
-                            Array
-                                .Find<ConditionStatus>(universalConditions.conditions, predicate)
-                                .status == dialogueCondition.status
-                        )
-                );
                 //if the player's condition sheet does not fulfill the condition status of the dialogue
                 if (
                     Array.Find<ConditionStatus>(universalConditions.conditions, predicate).status
@@ -135,18 +104,25 @@ public class DialogueSystem : Interactable, IEventListener
                 break;
             }
         }
+        //If no dialogue fits the bill
+        if (chosenDialogue == null)
+        {
+            //Choose first dialogue as default
+            chosenDialogue = dialogues[0];
+        }
         return chosenDialogue;
     }
 
-    //Start first instance of this dialogue
     public void OnEventReceived(EventData receivedEvent)
     {
         if (receivedEvent.Type == EventType.TextSpeedChanged)
         {
+            //Update text speed
             textSpeed = (float)receivedEvent.Data;
         }
     }
 
+    //Start first instance of this dialogue
     public void DialogueStart(string[] npcDialogue)
     {
         // player.toggleDialogue();

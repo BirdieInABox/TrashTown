@@ -9,15 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b222457bc06b99f49ac0c8c0f7c71954, type: 3}
-  m_Name: UniversalCondition
+  m_Script: {fileID: 11500000, guid: 25da3cd00628cd942b8a2235b335bf24, type: 3}
+  m_Name: SeaScooter 0
   m_EditorClassIdentifier: 
-  conditions:
-  - condition: 0
-    status: 0
-  - condition: 1
-    status: 0
-  - condition: 2
-    status: 0
-  - condition: 3
-    status: 0
+  isCrafted: 1
+  upgradeName: 
+  speed: 5
+  tier: 0
+  tierOneCost: 0
+  tierTwoCost: 0
+  tierThreeCost: 0
+  mesh: {fileID: 0}
+  icon: {fileID: 0}

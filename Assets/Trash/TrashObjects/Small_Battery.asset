@@ -12,7 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d291dff2d4ed35c40bf96f5087917fc3, type: 3}
   m_Name: Small_Battery
   m_EditorClassIdentifier: 
-  trashName: 
   trashTier: 1
-  trashWorth: 10
-  prefab: {fileID: 0}
+  trashWorth: 20

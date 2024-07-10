@@ -5,9 +5,9 @@ using UnityEngine;
 
 public class SceneExit : Interactable
 {
-    [SerializeField]
     public override void Interact()
     {
-        SceneLoader.ExitScene();
+        EventManager.MainStatic.FireEvent(new EventData(EventType.SaveGame));
+        SceneLoader.SwitchScene();
     }
 }

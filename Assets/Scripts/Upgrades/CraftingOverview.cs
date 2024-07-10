@@ -5,20 +5,21 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 
+public class Costs
+{
+    public int[] tierCosts = new int[3];
+
+    public Costs(int one, int two, int three)
+    {
+        Debug.Log(one + ", " + two + ", " + three);
+        tierCosts[0] = one;
+        tierCosts[1] = two;
+        tierCosts[2] = three;
+    }
+}
+
 public class CraftingOverview : MonoBehaviour, IEventListener
 {
-    private class Costs
-    {
-        public int[] tierCosts;
-
-        public Costs(int one, int two, int three)
-        {
-            tierCosts[0] = one;
-            tierCosts[1] = two;
-            tierCosts[2] = three;
-        }
-    }
-
     [SerializeField]
     private Image image;
 
@@ -43,6 +44,7 @@ public class CraftingOverview : MonoBehaviour, IEventListener
 
     [SerializeField]
     private Upgrades upgrades;
+    private Costs costs;
 
     // Start is called before the first frame update
     void Start()
@@ -93,10 +95,9 @@ public class CraftingOverview : MonoBehaviour, IEventListener
         tierOne.SetText(upgrade.tierOneCost.ToString());
         tierTwo.SetText(upgrade.tierTwoCost.ToString());
         tierThree.SetText(upgrade.tierThreeCost.ToString());
-        UnlockCraft(
-            new Costs(upgrade.tierOneCost, upgrade.tierTwoCost, upgrade.tierThreeCost),
-            upgrade.tier <= upgrades.airBottle.tier
-        );
+        costs = new Costs(upgrade.tierOneCost, upgrade.tierTwoCost, upgrade.tierThreeCost);
+
+        UnlockCraft((upgrades.airBottle != null) && (upgrade.tier <= upgrades.airBottle.tier));
     }
 
     private void UpdateInformation(Backpack upgrade)
@@ -106,10 +107,8 @@ public class CraftingOverview : MonoBehaviour, IEventListener
         tierOne.SetText(upgrade.tierOneCost.ToString());
         tierTwo.SetText(upgrade.tierTwoCost.ToString());
         tierThree.SetText(upgrade.tierThreeCost.ToString());
-        UnlockCraft(
-            new Costs(upgrade.tierOneCost, upgrade.tierTwoCost, upgrade.tierThreeCost),
-            upgrade.tier <= upgrades.backpack.tier
-        );
+        costs = new Costs(upgrade.tierOneCost, upgrade.tierTwoCost, upgrade.tierThreeCost);
+        UnlockCraft((upgrades.backpack != null) && upgrade.tier <= upgrades.backpack.tier);
     }
 
     private void UpdateInformation(SeaScooter upgrade)
@@ -119,19 +118,19 @@ public class CraftingOverview : MonoBehaviour, IEventListener
         tierOne.SetText(upgrade.tierOneCost.ToString());
         tierTwo.SetText(upgrade.tierTwoCost.ToString());
         tierThree.SetText(upgrade.tierThreeCost.ToString());
-        UnlockCraft(
-            new Costs(upgrade.tierOneCost, upgrade.tierTwoCost, upgrade.tierThreeCost),
-            upgrade.tier <= upgrades.scooter.tier
-        );
+        costs = new Costs(upgrade.tierOneCost, upgrade.tierTwoCost, upgrade.tierThreeCost);
+        UnlockCraft((upgrades.scooter != null) && upgrade.tier <= upgrades.scooter.tier);
     }
 
-    private void UnlockCraft(Costs costs, bool tierLower)
+    private void UnlockCraft(bool tierLower)
     {
         int[] resourceAmounts = resources.GetResources();
         bool stayLocked = tierLower;
+        Debug.Log(resourceAmounts.Length);
+
         if (!stayLocked)
         {
-            for (int i = 0; i < resourceAmounts.Length; i++)
+            for (int i = 0; i < resourceAmounts.Length; )
             {
                 stayLocked = stayLocked || (resourceAmounts[i] < costs.tierCosts[i]);
                 i++;
@@ -140,8 +139,26 @@ public class CraftingOverview : MonoBehaviour, IEventListener
         craftButton.interactable = !stayLocked;
     }
 
+    private void LockCraft()
+    {
+        craftButton.interactable = false;
+    }
+
+    public void ToggleCrafting()
+    {
+        EventManager.MainStatic.FireEvent(new EventData(EventType.CraftingToggled));
+    }
+
     public void OnCraft()
     {
+        LockCraft();
         EventManager.MainStatic.FireEvent(new EventData(EventType.ItemCrafted, upgrade));
+
+        EventManager.MainStatic.FireEvent(
+            new EventData(
+                EventType.ConditionChanged,
+                new ConditionStatus(Conditions.FirstItemCrafted, true)
+            )
+        );
     }
 }

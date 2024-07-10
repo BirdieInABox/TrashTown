@@ -6,8 +6,6 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Trash", menuName = "Trash", order = 0)]
 public class Trash : ScriptableObject
 {
-    public string trashName;
     public int trashTier;
     public int trashWorth;
-    public GameObject prefab;
 }

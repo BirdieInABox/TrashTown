@@ -8,10 +8,13 @@ public class CraftingItem : MonoBehaviour, IEventListener, IPointerClickHandler
 {
     [SerializeField]
     private Upgrade upgrade;
+    private bool isCraftable = true;
 
-    void Start()
+    private void OnEnable()
     {
         EventManager.MainStatic.AddListener(this);
+        if (upgrade.isCrafted)
+            isCraftable = false;
     }
 
     public void OnEventReceived(EventData receivedEvent)
@@ -19,19 +22,20 @@ public class CraftingItem : MonoBehaviour, IEventListener, IPointerClickHandler
         if (receivedEvent.Type == EventType.ItemCrafted)
         {
             if ((Upgrade)receivedEvent.Data == upgrade)
-
-                OnCraft();
+                LockCraft();
         }
     }
 
     public void OnPointerClick(PointerEventData pointerEventData)
     {
-        OnSelect();
+        if (isCraftable)
+            OnSelect();
     }
 
-    public void OnCraft()
+    private void LockCraft()
     {
-        //Lock this craft
+        upgrade.isCrafted = true;
+        isCraftable = false;
     }
 
     //Called on click in crafting interface

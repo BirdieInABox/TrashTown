@@ -38,11 +38,16 @@ public class PlayerController : MonoBehaviour, IEventListener
         inputActions = GetComponent<PlayerInput>();
     }
 
+    private void Start()
+    {
+        EventManager.MainStatic.AddListener(this);
+    }
+
     private void OnLevelWasLoaded()
     {
         if (
-            SceneManager.GetActiveScene().name == ((Scenes)1).ToString()
-            || SceneManager.GetActiveScene().name == ((Scenes)2).ToString()
+            SceneManager.GetActiveScene().name == ((Scenes)0).ToString()
+            || SceneManager.GetActiveScene().name == ((Scenes)1).ToString()
         )
         {
             EventManager.MainStatic.AddListener(this);
@@ -91,11 +96,6 @@ public class PlayerController : MonoBehaviour, IEventListener
         }
     }
 
-    private void Start()
-    {
-        EventManager.MainStatic.AddListener(this);
-    }
-
     private void Update()
     { //movement
         if (underWater)
@@ -104,13 +104,15 @@ public class PlayerController : MonoBehaviour, IEventListener
         {
             Walk();
         }
-        //Ray from center of camera towards the faced direction
-        sendRay();
     }
 
     public void OnEventReceived(EventData receivedEvent)
     {
         if (receivedEvent.Type == EventType.DialogueToggled)
+        {
+            ToggleDialogue();
+        }
+        else if (receivedEvent.Type == EventType.CraftingToggled)
         {
             ToggleDialogue();
         }
@@ -141,13 +143,6 @@ public class PlayerController : MonoBehaviour, IEventListener
             inputActions.currentActionMap = inputActions.actions.FindActionMap("UI");
         }
         EventManager.MainStatic.FireEvent(new EventData(EventType.GamePaused));
-    }
-
-    private void sendRay()
-    {
-        Vector3 rayAngle = bodyOfPlayer.transform.forward;
-        rayAngle.y = bodyOfPlayer.transform.forward.y + rayYOffset;
-        ray = new Ray(bodyOfPlayer.transform.position, rayAngle);
     }
 
     private void Walk()
@@ -194,8 +189,17 @@ public class PlayerController : MonoBehaviour, IEventListener
         waterVerticality = -value.Get<float>() * diveSpeed;
     }
 
+    private void sendRay()
+    {
+        Vector3 rayAngle = bodyOfPlayer.transform.forward;
+        rayAngle.y = bodyOfPlayer.transform.forward.y + rayYOffset;
+        ray = new Ray(bodyOfPlayer.transform.position, rayAngle);
+    }
+
     public void OnInteract(InputValue value)
     {
+        //Ray from center of player towards the faced direction
+        sendRay();
         RaycastHit hitInfo;
         //If movement allowed and raycast hit an object on chosen layer
         if (Physics.Raycast(ray, out hitInfo, interactDistance, rayMask))
@@ -214,7 +218,6 @@ public class PlayerController : MonoBehaviour, IEventListener
         }
     }
 
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "WaterBarrier")
@@ -222,5 +225,4 @@ public class PlayerController : MonoBehaviour, IEventListener
             other.gameObject.GetComponent<WaterBarrier>().CheckUpgrade(upgrade.airBottle);
         }
     }
-
 }

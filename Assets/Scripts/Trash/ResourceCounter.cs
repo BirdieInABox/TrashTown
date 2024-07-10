@@ -4,10 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-[System.Serializable]
 public class ResourceCounter : MonoBehaviour, IEventListener
 {
-    public int numOfTiers = 4;
+    public int numOfTiers = 3;
     private int[] resourcesAmounts;
     private TMP_Text[] counterTexts;
 
@@ -23,7 +22,8 @@ public class ResourceCounter : MonoBehaviour, IEventListener
         int i = 0;
         foreach (Transform child in transform)
         {
-            counterTexts[i] = child.GetComponent<TMP_Text>();
+            if (i < counterTexts.Length)
+                counterTexts[i] = child.GetComponent<TMP_Text>();
             i++;
         }
     }
@@ -43,12 +43,42 @@ public class ResourceCounter : MonoBehaviour, IEventListener
             IncreaseResource((TrashObject)receivedEvent.Data);
         else if (receivedEvent.Type == EventType.ItemCrafted)
         {
-            Upgrade upgradeItem = receivedEvent.Data as Upgrade;
-            if (upgradeItem is Backpack)
+            Upgrade upgrade = receivedEvent.Data as Upgrade;
+            if (upgrade is AirBottle)
             {
-                maxAmount = (upgradeItem as Backpack).size;
+                DecreaseResourceOnCraft(upgrade as AirBottle);
+            }
+            else if (upgrade is SeaScooter)
+            {
+                DecreaseResourceOnCraft(upgrade as SeaScooter);
+            }
+            else if (upgrade is Backpack)
+            {
+                DecreaseResourceOnCraft(upgrade as Backpack);
+                maxAmount = (upgrade as Backpack).size;
             }
         }
+    }
+
+    private void DecreaseResourceOnCraft(AirBottle airbottle)
+    {
+        DecreaseResource(airbottle.tierOneCost, 1);
+        DecreaseResource(airbottle.tierTwoCost, 2);
+        DecreaseResource(airbottle.tierThreeCost, 3);
+    }
+
+    private void DecreaseResourceOnCraft(SeaScooter scooter)
+    {
+        DecreaseResource(scooter.tierOneCost, 1);
+        DecreaseResource(scooter.tierTwoCost, 2);
+        DecreaseResource(scooter.tierThreeCost, 3);
+    }
+
+    private void DecreaseResourceOnCraft(Backpack backpack)
+    {
+        DecreaseResource(backpack.tierOneCost, 1);
+        DecreaseResource(backpack.tierTwoCost, 2);
+        DecreaseResource(backpack.tierThreeCost, 3);
     }
 
     public void IncreaseResource(TrashObject obj)

@@ -30,15 +30,5 @@ public static class SceneLoader
         SceneManager.LoadScene("Loading Screen");
     }
 
-    public static void PassOut()
-    {
-        //don't save first, switch instantly
-        SwitchScene();
-    }
 
-    public static void ExitScene()
-    {
-        //Save first, then switch
-        SwitchScene();
-    }
 }
