@@ -9,15 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b222457bc06b99f49ac0c8c0f7c71954, type: 3}
-  m_Name: UniversalCondition
+  m_Script: {fileID: 11500000, guid: f20749bc60a27774caf8feed82422a24, type: 3}
+  m_Name: Backpack 0
   m_EditorClassIdentifier: 
-  conditions:
-  - condition: 0
-    status: 0
-  - condition: 1
-    status: 0
-  - condition: 2
-    status: 0
-  - condition: 3
-    status: 0
+  isCrafted: 1
+  upgradeName: 
+  size: 10
+  tier: 0
+  tierOneCost: 0
+  tierTwoCost: 0
+  tierThreeCost: 0
+  mesh: {fileID: 0}
+  icon: {fileID: 0}

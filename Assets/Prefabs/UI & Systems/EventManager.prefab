@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2772152265557650995}
   - component: {fileID: 4953701025755546853}
+  - component: {fileID: 1019752616549039417}
+  - component: {fileID: 1769112119541138384}
   m_Layer: 0
   m_Name: EventManager
   m_TagString: Untagged
@@ -44,3 +46,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03fdeb247e788264caaa41b80650d5a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1019752616549039417
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4623481884033058153}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5ce1571b8489d04493b6dac105f04c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  trash: {fileID: 0}
+  upgrades: {fileID: 0}
+  resources: {fileID: 0}
+  conditions: {fileID: 11400000, guid: b0255c2e5f5f901409940830d59f1295, type: 2}
+--- !u!114 &1769112119541138384
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4623481884033058153}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1bfc5fce8e518b46a4cadf3c46763ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnPoint: {fileID: 0}

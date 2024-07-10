@@ -13,5 +13,6 @@ public enum EventType
     TextSpeedChanged,
     ConditionChanged,
     SaveGame,
-    SetSpawn
+    SetSpawn,
+    CraftingToggled
 }

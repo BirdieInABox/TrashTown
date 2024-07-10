@@ -23,12 +23,17 @@ public class SavingManager : MonoBehaviour, IEventListener
     private ConditionSheet conditions;
     private byte[] encKey,
         encIV;
+    private string savePath = "/SaveData.save";
 
     void Awake()
     {
-        EventManager.MainStatic.AddListener(this);
         encIV = Encoding.ASCII.GetBytes("8472634872343934");
         encKey = Encoding.ASCII.GetBytes("kajsedhasjkdahsdkahsdkjaasdjkhas");
+    }
+
+    private void Start()
+    {
+        EventManager.MainStatic.AddListener(this);
         LoadGameState();
     }
 
@@ -37,7 +42,7 @@ public class SavingManager : MonoBehaviour, IEventListener
         string saveString = JsonUtility.ToJson(saveData);
         byte[] bytes = EncryptionManager.EncryptToBytes(saveString, encKey, encIV);
         FileStream file = new FileStream(
-            Application.persistentDataPath + "/SaveData.save",
+            Application.persistentDataPath + savePath,
             FileMode.Create
         );
         file.Write(bytes);
@@ -46,11 +51,9 @@ public class SavingManager : MonoBehaviour, IEventListener
 
     public void LoadGameState()
     {
-        if (File.Exists(Application.persistentDataPath + "/SaveData.save"))
+        if (File.Exists(Application.persistentDataPath + savePath))
         {
-            byte[] encryptedData = File.ReadAllBytes(
-                Application.persistentDataPath + "/SaveData.save"
-            );
+            byte[] encryptedData = File.ReadAllBytes(Application.persistentDataPath + savePath);
             string loadString = EncryptionManager.DecryptFromBytes(encryptedData, encKey, encIV);
 
             Debug.Log(loadString);
@@ -61,6 +64,7 @@ public class SavingManager : MonoBehaviour, IEventListener
             upgrades.scooter = data.scooter;
             upgrades.backpack = data.backpack;
             trash.UpdateTrash(data.trashObjects);
+            Debug.Log(data.trashObjects.Count);
         }
     }
 

@@ -20,5 +20,6 @@ public class SeaScooter : Upgrade
 
     public Mesh mesh;
 
+
     public Sprite icon;
 }

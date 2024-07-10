@@ -224,7 +224,7 @@ GameObject:
   - component: {fileID: 4653704323122408883}
   - component: {fileID: 6345452963824940533}
   m_Layer: 5
-  m_Name: Dialogue
+  m_Name: DialogueUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

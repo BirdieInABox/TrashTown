@@ -46,6 +46,6 @@ public class SwimTimer : MonoBehaviour
     private void PassOut()
     {
         //tell scene manager to change back to land scene
-        SceneLoader.PassOut();
+        SceneLoader.SwitchScene();
     }
 }
