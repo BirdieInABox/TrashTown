@@ -14,7 +14,10 @@ public class EventManager : MonoBehaviour
     /// </summary>
     void Awake()
     {
-        MainStatic = this;
+        if (MainStatic == null)
+            MainStatic = this;
+        else
+            Destroy(gameObject);
         listeners = new List<IEventListener>();
         events = new List<EventData>();
     }
