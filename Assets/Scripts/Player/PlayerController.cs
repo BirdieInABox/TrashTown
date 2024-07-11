@@ -15,51 +15,67 @@ public class PlayerController : MonoBehaviour, IEventListener
     public float diveSpeed = 1.5f; //underwater diving speed
     private CharacterController controller;
 
-    [SerializeField]
+    [SerializeField] //a reference to the player's upgrades
     private Upgrades upgrade;
-    private Vector3 velocity;
     public float gravity = -9.81f; //The gravitational forces on the player
-    private Vector3 direction;
-    private Ray ray;
-    public float rayYOffset = 0;
-    public float interactDistance = 2f;
-    public LayerMask rayMask;
-    public bool underWater = false;
-    private Vector3 lookDirection;
-    public GameObject bodyOfPlayer;
-    private bool isSprinting = false;
-    private float waterVerticality = 0f;
-    private PlayerInput inputActions;
+    private Vector2 direction; //The 2-axes inputs
+    private Ray ray; //the raycast for interactions
+    public float rayYOffset = 0; //the ray's angular offset)
+    public float interactDistance = 2f; //the distance at which the player can interact
+    public LayerMask rayMask; //the layers the player can interact with
+    //whether the player is under water or not 
+    //(can be hidden in inspector for release, needs to be public for debugging)
+    public bool underWater = false; 
+    private Vector3 lookDirection; //The direction the player should be facing
+    public GameObject bodyOfPlayer; //the visual and physical body of the player
+    private bool isSprinting = false; //whether the player is currently sprinting
+    private float waterVerticality = 0f; //the 3rd axis used for underwater movement
+    private PlayerInput inputActions; //the input component, which holds the input maps
 
     private void Awake()
     {
+        //Get components
         controller = GetComponent<CharacterController>();
-        DontDestroyOnLoad(gameObject);
         inputActions = GetComponent<PlayerInput>();
+        //Make this persistent between scenes
+        DontDestroyOnLoad(gameObject);
     }
 
     private void Start()
     {
+        //Add this as listener to the event system
         EventManager.MainStatic.AddListener(this);
     }
 
     private void OnLevelWasLoaded()
     {
+        //If the current scene is at index 0 or 1 of the Scenes enum (Land or Water)
         if (
             SceneManager.GetActiveScene().name == ((Scenes)0).ToString()
             || SceneManager.GetActiveScene().name == ((Scenes)1).ToString()
         )
         {
+            //Add this as listener to the event system
             EventManager.MainStatic.AddListener(this);
+            //get the seaScooter's speed. This only needs to be done on scene changes,
+            //as it only affects underwater movement and a new sea scooter can only 
+            //be crafted on land. 
             sprintSpeed = upgrade.GetSpeed();
         }
+        //Update controls according to the current scene
         UpdateControls();
     }
 
+   
+    /// <summary>
+    /// 
+    /// </summary>
     private void UpdateControls()
     {
+        //if the current scene is at index 1 of the Scenes enum (Water)
         if (SceneManager.GetActiveScene().name == ((Scenes)1).ToString())
         {
+
             this.transform.GetChild(0).gameObject.SetActive(true);
             underWater = true;
             inputActions.currentActionMap = inputActions.actions.FindActionMap(
@@ -116,16 +132,6 @@ public class PlayerController : MonoBehaviour, IEventListener
         {
             ToggleDialogue();
         }
-        else if (receivedEvent.Type == EventType.SetSpawn)
-        {
-            GoToSpawn((Transform)receivedEvent.Data);
-        }
-    }
-
-    private void GoToSpawn(Transform spawn)
-    {
-        this.transform.position = spawn.position;
-        this.transform.rotation = spawn.rotation;
     }
 
     public void OnPause(InputValue value)

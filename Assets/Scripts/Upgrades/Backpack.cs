@@ -17,6 +17,7 @@ public class Backpack : Upgrade
     public int tierTwoCost;
 
     public int tierThreeCost;
+    public int tierFourCost;
 
     public Mesh mesh;
 

@@ -6,7 +6,7 @@ using TMPro;
 
 public class ResourceCounter : MonoBehaviour, IEventListener
 {
-    public int numOfTiers = 3;
+    public int numOfTiers = 4;
     private int[] resourcesAmounts;
     private TMP_Text[] counterTexts;
 
@@ -23,7 +23,7 @@ public class ResourceCounter : MonoBehaviour, IEventListener
         foreach (Transform child in transform)
         {
             if (i < counterTexts.Length)
-                counterTexts[i] = child.GetComponent<TMP_Text>();
+                counterTexts[i] = child.GetComponentInChildren<TMP_Text>();
             i++;
         }
     }
@@ -65,6 +65,7 @@ public class ResourceCounter : MonoBehaviour, IEventListener
         DecreaseResource(airbottle.tierOneCost, 1);
         DecreaseResource(airbottle.tierTwoCost, 2);
         DecreaseResource(airbottle.tierThreeCost, 3);
+        DecreaseResource(airbottle.tierFourCost, 4);
     }
 
     private void DecreaseResourceOnCraft(SeaScooter scooter)
@@ -72,6 +73,7 @@ public class ResourceCounter : MonoBehaviour, IEventListener
         DecreaseResource(scooter.tierOneCost, 1);
         DecreaseResource(scooter.tierTwoCost, 2);
         DecreaseResource(scooter.tierThreeCost, 3);
+        DecreaseResource(scooter.tierFourCost, 4);
     }
 
     private void DecreaseResourceOnCraft(Backpack backpack)
@@ -79,6 +81,7 @@ public class ResourceCounter : MonoBehaviour, IEventListener
         DecreaseResource(backpack.tierOneCost, 1);
         DecreaseResource(backpack.tierTwoCost, 2);
         DecreaseResource(backpack.tierThreeCost, 3);
+        DecreaseResource(backpack.tierFourCost, 4);
     }
 
     public void IncreaseResource(TrashObject obj)

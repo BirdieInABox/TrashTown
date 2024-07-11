@@ -7,14 +7,14 @@ using UnityEngine.UI;
 
 public class Costs
 {
-    public int[] tierCosts = new int[3];
+    public int[] tierCosts = new int[4];
 
-    public Costs(int one, int two, int three)
+    public Costs(int one, int two, int three, int four)
     {
-        Debug.Log(one + ", " + two + ", " + three);
         tierCosts[0] = one;
         tierCosts[1] = two;
         tierCosts[2] = three;
+        tierCosts[3] = four;
     }
 }
 
@@ -27,13 +27,10 @@ public class CraftingOverview : MonoBehaviour, IEventListener
     private TMP_Text upgradeName;
 
     [SerializeField]
-    private TMP_Text tierOne;
-
-    [SerializeField]
-    private TMP_Text tierTwo;
-
-    [SerializeField]
-    private TMP_Text tierThree;
+    private TMP_Text tierOne,
+        tierTwo,
+        tierThree,
+        tierFour;
 
     [SerializeField]
     private Button craftButton;
@@ -95,7 +92,8 @@ public class CraftingOverview : MonoBehaviour, IEventListener
         tierOne.SetText(upgrade.tierOneCost.ToString());
         tierTwo.SetText(upgrade.tierTwoCost.ToString());
         tierThree.SetText(upgrade.tierThreeCost.ToString());
-        costs = new Costs(upgrade.tierOneCost, upgrade.tierTwoCost, upgrade.tierThreeCost);
+        tierFour.SetText(upgrade.tierFourCost.ToString());
+        costs = new Costs(upgrade.tierOneCost, upgrade.tierTwoCost, upgrade.tierThreeCost, upgrade.tierFourCost);
 
         UnlockCraft((upgrades.airBottle != null) && (upgrade.tier <= upgrades.airBottle.tier));
     }
@@ -106,8 +104,8 @@ public class CraftingOverview : MonoBehaviour, IEventListener
         upgradeName.SetText(upgrade.upgradeName);
         tierOne.SetText(upgrade.tierOneCost.ToString());
         tierTwo.SetText(upgrade.tierTwoCost.ToString());
-        tierThree.SetText(upgrade.tierThreeCost.ToString());
-        costs = new Costs(upgrade.tierOneCost, upgrade.tierTwoCost, upgrade.tierThreeCost);
+        tierFour.SetText(upgrade.tierFourCost.ToString());
+        costs = new Costs(upgrade.tierOneCost, upgrade.tierTwoCost, upgrade.tierThreeCost, upgrade.tierFourCost);
         UnlockCraft((upgrades.backpack != null) && upgrade.tier <= upgrades.backpack.tier);
     }
 
@@ -117,8 +115,8 @@ public class CraftingOverview : MonoBehaviour, IEventListener
         upgradeName.SetText(upgrade.upgradeName);
         tierOne.SetText(upgrade.tierOneCost.ToString());
         tierTwo.SetText(upgrade.tierTwoCost.ToString());
-        tierThree.SetText(upgrade.tierThreeCost.ToString());
-        costs = new Costs(upgrade.tierOneCost, upgrade.tierTwoCost, upgrade.tierThreeCost);
+        tierFour.SetText(upgrade.tierFourCost.ToString());
+        costs = new Costs(upgrade.tierOneCost, upgrade.tierTwoCost, upgrade.tierThreeCost, upgrade.tierFourCost);
         UnlockCraft((upgrades.scooter != null) && upgrade.tier <= upgrades.scooter.tier);
     }
 
