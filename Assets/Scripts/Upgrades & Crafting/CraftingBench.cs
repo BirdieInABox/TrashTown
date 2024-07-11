@@ -8,6 +8,9 @@ public class CraftingBench : Interactable
     [SerializeField] //The crafting UI that has to be displayed
     private GameObject craftingUI;
 
+    /// <summary>
+    /// called upon player interaction
+    /// </summary>
     public override void Interact()
     {
         //Toggle controls

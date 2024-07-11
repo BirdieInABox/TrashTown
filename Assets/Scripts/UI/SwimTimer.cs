@@ -28,6 +28,7 @@ public class SwimTimer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //if timer not done
         if (timeLeft > 0f)
         {
             //Passage of time
@@ -37,15 +38,16 @@ public class SwimTimer : MonoBehaviour
 
             //Automatic event
         }
-        else
+        else //if timer has run out
         {
+            //pass out
             PassOut();
         }
     }
 
     private void PassOut()
     {
-        //tell scene manager to change back to land scene
+        //tell scene manager to change back to land scene without saving
         SceneLoader.SwitchScene();
     }
 }

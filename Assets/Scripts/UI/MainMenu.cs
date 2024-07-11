@@ -25,7 +25,7 @@ public class MainMenu : MonoBehaviour
         SFXVolumeText,
         TextSpeedText;
 
-    [SerializeField] //Main menu background music
+    [SerializeField] //audio mixer
     private AudioMixer audioMixer;
 
     private void Awake()
@@ -64,7 +64,7 @@ public class MainMenu : MonoBehaviour
     //Called when value of MVolumeSlider changes
     public void ChangeMasterVolume()
     {
-        //Set AudioListener's volume to value
+        //Set the mixer's master volume to a value from -80 and 0dB
         audioMixer.SetFloat("MasterVolume", Mathf.Log10(MVolumeSlider.value) * 20);
         //Update value text
         MVolumeText.SetText((int)(MVolumeSlider.value * 100) + "%");
@@ -76,7 +76,7 @@ public class MainMenu : MonoBehaviour
     //Called when value of BGMVolume changes
     public void ChangeBGMVolume()
     {
-        //Set Audiosource's volume to value
+        //Set the mixer's BGM volume to a value from -80 and 0dB
         audioMixer.SetFloat("BGMVolume", Mathf.Log10(BGMVolumeSlider.value) * 20);
         //Update value text
         BGMVolumeText.SetText((int)(BGMVolumeSlider.value * 100) + "%");
@@ -88,6 +88,7 @@ public class MainMenu : MonoBehaviour
     //Called when value of SFXVolume changes
     public void ChangeSFXVolume()
     {
+        //Set the mixer's SFX volume to a value from -80 and 0dB
         audioMixer.SetFloat("SFXVolume", Mathf.Log10(SFXVolumeSlider.value) * 20);
         //Update value text
         SFXVolumeText.SetText((int)(SFXVolumeSlider.value * 100) + "%");
@@ -100,6 +101,7 @@ public class MainMenu : MonoBehaviour
     {
         //Update value text
         TextSpeedText.SetText(((int)(TextSpeedSlider.value)).ToString());
+        //save preference
         PlayerPrefs.SetFloat("TextSpeed", TextSpeedSlider.value);
         PlayerPrefs.Save();
     }
@@ -110,19 +112,21 @@ public class MainMenu : MonoBehaviour
         Application.Quit();
     }
 
-    //Called by Start Level button
+    //Called by Start Game button
     public void StartLevel()
     {
-        //Load the level
-        SceneLoaderData.sceneToLoad = ((Scenes)1).ToString();
+        //prepare to load the level at index 0 (Land)
+        SceneLoaderData.sceneToLoad = ((Scenes)0).ToString();
+        //Load the loading screen
         SceneManager.LoadScene("Loading Screen");
     }
 
+    //Removed after having been asked by UI designer
     //Called by Keybinds-button
-    public void ToggleKeybindsMenu()
+    /*public void ToggleKeybindsMenu()
     {
         keybindsMenu.SetActive(!keybindsMenu.activeSelf);
-    }
+    }*/
 
     //Called by Settings-button
     public void ToggleSettings()

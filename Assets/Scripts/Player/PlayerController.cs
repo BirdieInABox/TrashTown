@@ -44,8 +44,8 @@ public class PlayerController : MonoBehaviour, IEventListener
 
     private void Start()
     {
-        //Add this as listener to the event system
-        EventManager.MainStatic.AddListener(this);
+        //Load the game
+        Load();
     }
 
     private void OnLevelWasLoaded()
@@ -253,7 +253,7 @@ public class PlayerController : MonoBehaviour, IEventListener
     }
 
     /// <summary>
-    /// Called by Rise Key (standard: shift)
+    /// Called by Rise Key (standard: control)
     /// </summary>
     public void OnDive(InputValue value)
     {
@@ -261,10 +261,16 @@ public class PlayerController : MonoBehaviour, IEventListener
         waterVerticality = -value.Get<float>() * diveSpeed;
     }
 
+    /// <summary>
+    /// Send a raycast in the direction the player body is facing
+    /// </summary>
     private void sendRay()
     {
+        //Get the direction the body is facing
         Vector3 rayAngle = bodyOfPlayer.transform.forward;
+        //Add vertical offset
         rayAngle.y = bodyOfPlayer.transform.forward.y + rayYOffset;
+        //send ray from player's position
         ray = new Ray(bodyOfPlayer.transform.position, rayAngle);
     }
 
@@ -280,7 +286,6 @@ public class PlayerController : MonoBehaviour, IEventListener
             if (hitInfo.collider.GetComponent<Interactable>() != null)
             {
                 //Call Interact method of Interactable
-
                 hitInfo.collider.GetComponent<Interactable>().Interact();
             }
             else
@@ -290,11 +295,27 @@ public class PlayerController : MonoBehaviour, IEventListener
         }
     }
 
+    /// <summary>
+    /// called when entering a trigger
+    /// </summary>
+    /// <param name="other">the collider of the other object</param>
     private void OnTriggerEnter(Collider other)
     {
+        //If the collided object has the tag "Water Barrier"
         if (other.gameObject.tag == "WaterBarrier")
         {
+            //Check if the player can pass the barrier
             other.gameObject.GetComponent<WaterBarrier>().CheckUpgrade(upgrade.airBottle);
         }
+    }
+
+    /// <summary>
+    /// As this is the only persistent object in the project, and we only want to load the game once, 
+    /// the game gets loaded once by the PlayerController
+    /// </summary>
+    private void Load()
+    {
+        //Send an event of type "LoadGame" to the event system
+        EventManager.MainStatic.FireEvent(new EventData(EventType.LoadGame));
     }
 }
