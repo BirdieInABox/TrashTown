@@ -1757,6 +1757,11 @@ PrefabInstance:
       objectReference: {fileID: 4428586851995993903}
     - target: {fileID: 890456386594767843, guid: 5aa30d782d1df51408aec44f34a840f2,
         type: 3}
+      propertyPath: landTrash
+      value: 
+      objectReference: {fileID: 1251335968}
+    - target: {fileID: 890456386594767843, guid: 5aa30d782d1df51408aec44f34a840f2,
+        type: 3}
       propertyPath: resources
       value: 
       objectReference: {fileID: 190786360}

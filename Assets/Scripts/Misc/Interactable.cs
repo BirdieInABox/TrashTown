@@ -3,10 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//Interface for interactables
 public class Interactable : MonoBehaviour
 {
-    public virtual void Interact()
-    {
-        Debug.Log("Interacted");
-    }
+    /// <summary>
+    /// Called upon interaction by the player
+    /// </summary>
+    public virtual void Interact() { }
 }

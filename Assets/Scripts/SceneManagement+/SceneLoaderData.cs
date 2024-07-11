@@ -5,5 +5,6 @@ using UnityEngine;
 
 public static class SceneLoaderData
 {
+    //Statically accessible name of the next scene to load
     public static string sceneToLoad;
 }

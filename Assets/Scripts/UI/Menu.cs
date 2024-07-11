@@ -27,20 +27,10 @@ public class Menu : MonoBehaviour, IEventListener
         SFXVolumeText,
         TextSpeedText;
 
-    [SerializeField]
-    private Player player;
-
-    [SerializeField] //Sound sources
+    [SerializeField] //Sound mixer
     private AudioMixer audioMixer;
 
     public static bool gameIsPaused = false;
-
-    //Called by Exit Game button
-    public void Exit()
-    {
-        Save();
-        Application.Quit();
-    }
 
     void Start()
     {
@@ -52,6 +42,7 @@ public class Menu : MonoBehaviour, IEventListener
 
     void Awake()
     {
+        //locks cursor and sets game to unpaused
         Cursor.lockState = CursorLockMode.Locked;
         gameIsPaused = false;
         //Get saved preference for master volume and set slider and value text to it
@@ -109,13 +100,15 @@ public class Menu : MonoBehaviour, IEventListener
         PlayerPrefs.Save();
     }
 
+    //Called when value of TextSpeed changes
     public void ChangeTextSpeed()
     {
         //Update value text
-        //EventManager.MainStatic.FireEvent( new EventData(EventType.TextSpeedChanged, TextSpeedSlider.value)        );
         TextSpeedText.SetText(((int)(TextSpeedSlider.value)).ToString());
+        //Save preferences
         PlayerPrefs.SetFloat("TextSpeed", TextSpeedSlider.value);
         PlayerPrefs.Save();
+        //send an event to the event system of type "TextSpeedChanged" with the new text speed value as payload
         EventManager.MainStatic.FireEvent(
             new EventData(EventType.TextSpeedChanged, (float)(1 / (TextSpeedSlider.value * 10)))
         );
@@ -124,6 +117,7 @@ public class Menu : MonoBehaviour, IEventListener
     //Called by the BackToMenu button
     public void ToMainMenu()
     {
+        //Save the game and go back to the main menu
         Save();
         SceneManager.LoadScene("MainMenu");
     }
@@ -145,6 +139,7 @@ public class Menu : MonoBehaviour, IEventListener
         {
             ToggleMenu();
         }
+        //Pause/Unpause the time
         Time.timeScale = (gameIsPaused ? 0 : 1);
     }
 
@@ -187,16 +182,32 @@ public class Menu : MonoBehaviour, IEventListener
         settingsMenu.SetActive(!settingsMenu.activeSelf);
     }
 
+    //Called by Exit Game button
+    public void Exit()
+    {
+        //Saves the game and exits
+        Save();
+        Application.Quit();
+    }
+
+    /// <summary>
+    /// Called upon EventSystem sending an event
+    /// </summary>
+    /// <param name="receivedEvent">the received event, including type and content</param>
     public void OnEventReceived(EventData receivedEvent)
     {
+        //if the event is of type "GamePaused
         if (receivedEvent.Type == EventType.GamePaused)
         {
+            //toggle menu
             OnToggle(null);
         }
     }
 
+    //Tells the SavingManager to save the game
     private void Save()
     {
+        //Sends an event of type "SaveGame" to the event system
         EventManager.MainStatic.FireEvent(new EventData(EventType.SaveGame));
     }
 }

@@ -9,35 +9,37 @@ public class LoadingScreen : MonoBehaviour
 {
     public Slider loadingSlider; // Reference to the UI slider for progress
     public TMP_Text loadingText; // Reference to the UI text for progress percentage
-    public float screenDuration;
+    public float screenDuration; //The time artificially added to the loading screen (in seconds)
 
-    void Start()
-    {
-        // Start the loading process in a coroutine to allow UI updates
-    }
-
-    /// <summary>
-    /// Update is called every frame, if the MonoBehaviour is enabled.
-    /// </summary>
     void Update()
     {
+        //if the timer has not run out yet
         if (screenDuration > 0)
         {
+            //reduce timer
             screenDuration -= Time.deltaTime;
+            //if the timer is <= zero now
             if (screenDuration <= 0)
             {
+                //Start loading the next scene
                 StartCoroutine(LoadSceneAsync());
             }
         }
     }
 
+    /// <summary>
+    /// Loads a scene asynchronously and displays the progress as a loading bar and text
+    /// </summary>
     private IEnumerator LoadSceneAsync()
     {
-        AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(SceneLoaderData.sceneToLoad);
+        //Load the scene asynchronously
+        AsyncOperation asyncLoading = SceneManager.LoadSceneAsync(SceneLoaderData.sceneToLoad);
 
-        while (!asyncOperation.isDone)
+        //While the net scene is loading
+        while (!asyncLoading.isDone)
         {
-            float progress = Mathf.Clamp01(asyncOperation.progress); // Normalize progress
+            //calculate progress and normalize it
+            float progress = Mathf.Clamp01(asyncLoading.progress);
 
             // Update UI elements
             loadingSlider.value = progress;
