@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Level Design/Level Design.unity
     guid: ea34fb6df67acbc43a43faa14f759559
+  - enabled: 1
+    path: Assets/Scenes/Level Design/Water LD.unity
+    guid: 3b3e73f904fb3b94cb31685a180382db
   m_configObjects: {}
