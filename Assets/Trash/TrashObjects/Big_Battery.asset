@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d291dff2d4ed35c40bf96f5087917fc3, type: 3}
   m_Name: Big_Battery
   m_EditorClassIdentifier: 
-  trashTier: 3
-  trashWorth: 20
+  trashTier: 1
+  trashWorth: 1
