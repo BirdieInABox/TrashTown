@@ -40,8 +40,8 @@ public class SavingManager : MonoBehaviour, IEventListener
         //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         //!!!! CENSOR THOSE BEFORE PUBLISHING THE CODE !!!!
         //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        encIV = Encoding.ASCII.GetBytes("8472634872343934");
-        encKey = Encoding.ASCII.GetBytes("kajsedhasjkdahsdkahsdkjaasdjkhas");
+        encIV = Encoding.ASCII.GetBytes("1111111111111111");
+        encKey = Encoding.ASCII.GetBytes("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
     }
 
     private void Start()
