@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Box Volume Level 2 Profile
   m_EditorClassIdentifier: 
   components:
-  - {fileID: 821791684072246617}
---- !u!114 &821791684072246617
+  - {fileID: 8504503946069947307}
+--- !u!114 &8504503946069947307
 MonoBehaviour:
   m_ObjectHideFlags: 3
   m_CorrespondingSourceObject: {fileID: 0}
@@ -23,22 +23,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 899c54efeace73346a0a16faa3afe726, type: 3}
-  m_Name: Vignette
+  m_Script: {fileID: 11500000, guid: 5485954d14dfb9a4c8ead8edb0ded5b1, type: 3}
+  m_Name: LiftGammaGain
   m_EditorClassIdentifier: 
   active: 1
-  color:
+  lift:
     m_OverrideState: 1
-    m_Value: {r: 0, g: 0, b: 0, a: 1}
-  center:
+    m_Value: {x: 0.79105896, y: 1, z: 0.8290665, w: 0}
+  gamma:
     m_OverrideState: 1
-    m_Value: {x: 0.5, y: 0.5}
-  intensity:
+    m_Value: {x: 1, y: 0.9131267, z: 0.9806512, w: 0}
+  gain:
     m_OverrideState: 1
-    m_Value: 0.7
-  smoothness:
-    m_OverrideState: 1
-    m_Value: 0.2
-  rounded:
-    m_OverrideState: 1
-    m_Value: 0
+    m_Value: {x: 0.8479849, y: 1, z: 0.9522343, w: 0}
