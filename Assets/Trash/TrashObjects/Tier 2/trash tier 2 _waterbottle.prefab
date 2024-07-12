@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7601141791144660515}
   - component: {fileID: 7543433004038182101}
   - component: {fileID: 8930678405607442150}
-  - component: {fileID: 7761887787641123306}
+  - component: {fileID: 8382944589893885666}
   m_Layer: 0
   m_Name: trash tier 2 _waterbottle
   m_TagString: Untagged
@@ -30,8 +30,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 7.8, y: 2.71, z: 22.43}
-  m_LocalScale: {x: 13.58, y: 39.742306, z: 13.58}
-  m_ConstrainProportionsScale: 1
+  m_LocalScale: {x: 30, y: 90, z: 30}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -98,7 +98,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trash: {fileID: 11400000, guid: 58e1981e5482d6c4b9039e26b9cfa6db, type: 2}
---- !u!65 &7761887787641123306
+--- !u!65 &8382944589893885666
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -117,5 +117,5 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.57285964, y: 0.78917325, z: 0.591995}
-  m_Center: {x: 0.000000059604645, y: -0.000000044703484, z: -0.000000014901161}
+  m_Size: {x: 0.022776373, y: 0.020536898, z: 0.019724883}
+  m_Center: {x: -0.000000019092113, y: -0.00011715525, z: 0}
