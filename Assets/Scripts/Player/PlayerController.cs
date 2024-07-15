@@ -272,6 +272,7 @@ public class PlayerController : MonoBehaviour, IEventListener
         rayAngle.y = bodyOfPlayer.transform.forward.y + rayYOffset;
         //send ray from player's position
         ray = new Ray(bodyOfPlayer.transform.position, rayAngle);
+        Debug.DrawRay(bodyOfPlayer.transform.position, rayAngle, Color.green);
     }
 
     public void OnInteract(InputValue value)
