@@ -39,16 +39,16 @@ public class PlayerController : MonoBehaviour, IEventListener
         controller = GetComponent<CharacterController>();
         inputActions = GetComponent<PlayerInput>();
         //Make this persistent between scenes
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
     }
+
+    /*   private void Start()
+       {
+           //Load the game
+           Load();
+       }*/
 
     private void Start()
-    {
-        //Load the game
-        Load();
-    }
-
-    private void OnLevelWasLoaded()
     {
         //If the current scene is at index 0 or 1 of the Scenes enum (Land or Water)
         if (
@@ -310,7 +310,7 @@ public class PlayerController : MonoBehaviour, IEventListener
     }
 
     /// <summary>
-    /// As this is the only persistent object in the project, and we only want to load the game once, 
+    /// As this is the only persistent object in the project, and we only want to load the game once,
     /// the game gets loaded once by the PlayerController
     /// </summary>
     private void Load()
