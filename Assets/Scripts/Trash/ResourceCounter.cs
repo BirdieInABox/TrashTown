@@ -36,6 +36,14 @@ public class ResourceCounter : MonoBehaviour, IEventListener
                 counterTexts[i] = child.GetComponentInChildren<TMP_Text>();
             i++;
         }
+        UpdateTexts();
+    }
+
+    /// <summary>
+    /// Updates each counter in the UI
+    /// </summary>
+    private void UpdateTexts()
+    {
         for (int j = 0; j < resourcesAmounts.Length; j++)
         {
             counterTexts[j].SetText(resourcesAmounts[j] + " / " + maxAmount);
@@ -78,6 +86,7 @@ public class ResourceCounter : MonoBehaviour, IEventListener
                 DecreaseResourceOnCraft(upgrade as Backpack);
                 //Update max amount on backpack crafted
                 maxAmount = (upgrade as Backpack).size;
+                UpdateTexts();
             }
         }
     }
