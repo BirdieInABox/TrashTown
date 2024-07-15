@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: Backpack 1
   m_EditorClassIdentifier: 
   isCrafted: 0
-  upgradeName: 
+  upgradeName: Basic Backpack
   size: 25
   tier: 1
   tierOneCost: 0
-  tierTwoCost: 0
+  tierTwoCost: 10
   tierThreeCost: 0
   tierFourCost: 0
   mesh: {fileID: 0}

@@ -14,10 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isCrafted: 1
   upgradeName: Advanced Air Bottle
-  capacity: 300
+  capacity: 120
   tier: 2
-  tierOneCost: 5
+  tierOneCost: 0
   tierTwoCost: 10
-  tierThreeCost: 15
+  tierThreeCost: 5
+  tierFourCost: 0
   mesh: {fileID: 0}
   icon: {fileID: 0}

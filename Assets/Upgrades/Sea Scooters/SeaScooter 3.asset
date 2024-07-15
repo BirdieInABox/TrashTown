@@ -12,7 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25da3cd00628cd942b8a2235b335bf24, type: 3}
   m_Name: SeaScooter 3
   m_EditorClassIdentifier: 
+  isCrafted: 1
+  upgradeName: Superior See Scooter
+  speed: 11
   tier: 3
-  scooterName: Great Sea Scooter
-  speed: 12
+  tierOneCost: 0
+  tierTwoCost: 0
+  tierThreeCost: 0
+  tierFourCost: 10
   mesh: {fileID: 0}
+  icon: {fileID: 0}
