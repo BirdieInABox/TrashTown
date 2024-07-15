@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 8945133150749171387}
   - component: {fileID: 3939157910546028016}
   - component: {fileID: 2592103723584413208}
-  - component: {fileID: 209182406738461811}
   - component: {fileID: 972326603082317261}
+  - component: {fileID: 8934512827365738770}
   m_Layer: 6
   m_Name: TT1_2 Rubber_Bucket_broken
   m_TagString: Untagged
@@ -85,7 +85,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &209182406738461811
+--- !u!114 &972326603082317261
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 132618267658132534}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed9335b463c749f459dca1cb60dc9207, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  trash: {fileID: 11400000, guid: 3942105a12630ee44aa9088d27181799, type: 2}
+--- !u!65 &8934512827365738770
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -104,18 +117,5 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.51015645, y: 0.5529884, z: 0.4451829}
-  m_Center: {x: -0.005148769, y: -0.05993352, z: 0.06256538}
---- !u!114 &972326603082317261
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 132618267658132534}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed9335b463c749f459dca1cb60dc9207, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  trash: {fileID: 11400000, guid: 3942105a12630ee44aa9088d27181799, type: 2}
+  m_Size: {x: 0.44305456, y: 2.1185172, z: 0.42352027}
+  m_Center: {x: -0.000000023495556, y: 0.8436944, z: -0.0039235996}

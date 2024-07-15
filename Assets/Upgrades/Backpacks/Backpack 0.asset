@@ -14,10 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isCrafted: 1
   upgradeName: 
-  size: 10
+  size: 15
   tier: 0
   tierOneCost: 0
   tierTwoCost: 0
   tierThreeCost: 0
+  tierFourCost: 0
   mesh: {fileID: 0}
   icon: {fileID: 0}

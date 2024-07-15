@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3939157910546028016}
   - component: {fileID: 2592103723584413208}
   - component: {fileID: 972326603082317261}
-  - component: {fileID: 4436370320914699699}
+  - component: {fileID: 6477877774531629671}
   m_Layer: 6
   m_Name: TT1_1 Rubber_Bucket
   m_TagString: Untagged
@@ -98,7 +98,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trash: {fileID: 11400000, guid: 3942105a12630ee44aa9088d27181799, type: 2}
---- !u!65 &4436370320914699699
+--- !u!65 &6477877774531629671
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -117,5 +117,5 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.0368661, y: 0.90925205, z: 0.87352586}
-  m_Center: {x: 0.024733113, y: -0.03066337, z: 0.03180819}
+  m_Size: {x: 0.46912283, y: 2.9117708, z: 0.42321512}
+  m_Center: {x: 0.00000014097333, y: 1.2258909, z: -0.005072744}

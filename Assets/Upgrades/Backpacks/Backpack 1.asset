@@ -12,7 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f20749bc60a27774caf8feed82422a24, type: 3}
   m_Name: Backpack 1
   m_EditorClassIdentifier: 
+  isCrafted: 0
+  upgradeName: 
+  size: 25
   tier: 1
-  backpackName: Basic Backpack
-  size: 100
+  tierOneCost: 0
+  tierTwoCost: 0
+  tierThreeCost: 0
+  tierFourCost: 0
   mesh: {fileID: 0}
+  icon: {fileID: 0}
