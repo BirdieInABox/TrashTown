@@ -316,6 +316,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fcc301108efc444a98118ee780cdf9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  airBottle: {fileID: 11400000, guid: 06f42c6624af3cf4fa0e07c766dbf277, type: 2}
-  scooter: {fileID: 11400000, guid: 8c13d025e4c78c84f9dac7e70e820b10, type: 2}
-  backpack: {fileID: 11400000, guid: b5eeccca346a5dc4ab49e0258290be06, type: 2}
+  airBottle: {fileID: 11400000, guid: f4bd281d453aef04797f6ce060b503fa, type: 2}
+  scooter: {fileID: 11400000, guid: 34a51756a3a0900478ac79445b84110d, type: 2}
+  backpack: {fileID: 11400000, guid: d6a5fca3200cfdd48b0096c3ba4f8962, type: 2}

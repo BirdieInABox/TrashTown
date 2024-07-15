@@ -128,6 +128,7 @@ public class PlayerController : MonoBehaviour, IEventListener
 
     private void Update()
     {
+        sendRay();
         //if underwater, using water movement
         if (underWater)
             Swim();
@@ -286,7 +287,7 @@ public class PlayerController : MonoBehaviour, IEventListener
     public void OnInteract(InputValue value)
     {
         //Ray from center of player towards the faced direction
-        sendRay();
+        
         RaycastHit hitInfo;
         //If movement allowed and raycast hit an object on chosen layer
         if (Physics.Raycast(ray, out hitInfo, interactDistance, rayMask))
