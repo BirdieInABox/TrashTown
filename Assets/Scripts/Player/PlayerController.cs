@@ -289,7 +289,7 @@ public class PlayerController : MonoBehaviour, IEventListener
         sendRay();
         RaycastHit hitInfo;
         //If movement allowed and raycast hit an object on chosen layer
-        if (Physics.SphereCast(ray, 0.5f, out hitInfo, interactDistance, rayMask))
+        if (Physics.Raycast(ray, out hitInfo, interactDistance, rayMask))
         {
             //If hit object has component Interactable
             if (hitInfo.collider.GetComponent<Interactable>() != null)
