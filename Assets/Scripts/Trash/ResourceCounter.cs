@@ -14,8 +14,14 @@ public class ResourceCounter : MonoBehaviour, IEventListener
     private Upgrades upgrades;
     private int maxAmount; //the maximum amount of resources collected of each tier
 
-    void Awake()
+    /// <summary>
+    /// Start is called on the frame when a script is enabled just before
+    /// any of the Update methods is called the first time.
+    /// </summary>
+    void Start()
     {
+        //Add this as listener to the event system
+        EventManager.MainStatic.AddListener(this);
         //the amount of resources allowed by the current backpack
         maxAmount = upgrades.GetSize();
         //initialize amounts and UI
@@ -30,16 +36,10 @@ public class ResourceCounter : MonoBehaviour, IEventListener
                 counterTexts[i] = child.GetComponentInChildren<TMP_Text>();
             i++;
         }
-    }
-
-    /// <summary>
-    /// Start is called on the frame when a script is enabled just before
-    /// any of the Update methods is called the first time.
-    /// </summary>
-    void Start()
-    {
-        //Add this as listener to the event system
-        EventManager.MainStatic.AddListener(this);
+        for (int j = 0; j < resourcesAmounts.Length; j++)
+        {
+            counterTexts[j].SetText(resourcesAmounts[j] + " / " + maxAmount);
+        }
     }
 
     /// <summary>
