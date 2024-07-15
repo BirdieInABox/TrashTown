@@ -151,12 +151,22 @@ public class PlayerController : MonoBehaviour, IEventListener
         {
             ToggleDialogue();
         }
+        else if (receivedEvent.Type == EventType.GamePaused)
+        {
+            TogglePause();
+        }
     }
 
     /// <summary>
     /// Called by Pause key, sends event "GamePaused"
     /// </summary>
     public void OnPause(InputValue value)
+    {
+        //Sends GamePaused event through the event system
+        EventManager.MainStatic.FireEvent(new EventData(EventType.GamePaused));
+    }
+
+    private void TogglePause()
     {
         //If it's currently using the UI action map
         if (inputActions.currentActionMap == inputActions.actions.FindActionMap("UI"))
@@ -178,8 +188,6 @@ public class PlayerController : MonoBehaviour, IEventListener
             //use the UI action map
             inputActions.currentActionMap = inputActions.actions.FindActionMap("UI");
         }
-        //Sends GamePaused event through the event system
-        EventManager.MainStatic.FireEvent(new EventData(EventType.GamePaused));
     }
 
     /// <summary>
@@ -281,7 +289,7 @@ public class PlayerController : MonoBehaviour, IEventListener
         sendRay();
         RaycastHit hitInfo;
         //If movement allowed and raycast hit an object on chosen layer
-        if (Physics.Raycast(ray, out hitInfo, interactDistance, rayMask))
+        if (Physics.SphereCast(ray, 0.5f, out hitInfo, interactDistance, rayMask))
         {
             //If hit object has component Interactable
             if (hitInfo.collider.GetComponent<Interactable>() != null)

@@ -132,6 +132,7 @@ public class CraftingOverview : MonoBehaviour, IEventListener
         upgradeName.SetText(upgrade.upgradeName);
         tierOne.SetText(upgrade.tierOneCost.ToString());
         tierTwo.SetText(upgrade.tierTwoCost.ToString());
+        tierThree.SetText(upgrade.tierThreeCost.ToString());
         tierFour.SetText(upgrade.tierFourCost.ToString());
         costs = new Costs(
             upgrade.tierOneCost,
@@ -155,6 +156,7 @@ public class CraftingOverview : MonoBehaviour, IEventListener
         upgradeName.SetText(upgrade.upgradeName);
         tierOne.SetText(upgrade.tierOneCost.ToString());
         tierTwo.SetText(upgrade.tierTwoCost.ToString());
+        tierThree.SetText(upgrade.tierThreeCost.ToString());
         tierFour.SetText(upgrade.tierFourCost.ToString());
         costs = new Costs(
             upgrade.tierOneCost,

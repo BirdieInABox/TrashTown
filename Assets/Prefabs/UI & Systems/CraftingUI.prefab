@@ -2200,7 +2200,7 @@ MonoBehaviour:
   tierOne: {fileID: 4206660569828096757}
   tierTwo: {fileID: 8308558455173033082}
   tierThree: {fileID: 196236733909037688}
-  tierFour: {fileID: 0}
+  tierFour: {fileID: 4772152339518461}
   craftButton: {fileID: 8076674659395253388}
   resources: {fileID: 0}
   upgrades: {fileID: 0}

@@ -122,7 +122,6 @@ public class Menu : MonoBehaviour, IEventListener
         SceneManager.LoadScene("MainMenu");
     }
 
-    //Called by Escape key
     public void OnToggle(InputValue value)
     {
         //If Settings are shown
@@ -152,7 +151,8 @@ public class Menu : MonoBehaviour, IEventListener
     //Called by Resume button
     public void Resume()
     {
-        ToggleMenu();
+        //Sends GamePaused event through the event system
+        EventManager.MainStatic.FireEvent(new EventData(EventType.GamePaused));
     }
 
     // Turns menu on/off
